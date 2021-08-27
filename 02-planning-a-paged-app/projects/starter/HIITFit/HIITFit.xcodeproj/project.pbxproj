@@ -17,6 +17,7 @@
 		CD30C94725147AEF0049DB93 /* burpee.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CD30C94325147AEF0049DB93 /* burpee.mp4 */; };
 		CD30C94825147AEF0049DB93 /* squat.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CD30C94425147AEF0049DB93 /* squat.mp4 */; };
 		CD30C94925147AEF0049DB93 /* sun-salute.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = CD30C94525147AEF0049DB93 /* sun-salute.mp4 */; };
+		CFACA02126D8FCCC0058B830 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFACA02026D8FCCC0058B830 /* HeaderView.swift */; };
 		CFC3892E26D8D7BF00B0A5B5 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3892D26D8D7BF00B0A5B5 /* WelcomeView.swift */; };
 		CFC3893026D8D7CF00B0A5B5 /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC3892F26D8D7CF00B0A5B5 /* ExerciseView.swift */; };
 /* End PBXBuildFile section */
@@ -34,6 +35,7 @@
 		CD30C94325147AEF0049DB93 /* burpee.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = burpee.mp4; sourceTree = "<group>"; };
 		CD30C94425147AEF0049DB93 /* squat.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = squat.mp4; sourceTree = "<group>"; };
 		CD30C94525147AEF0049DB93 /* sun-salute.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "sun-salute.mp4"; sourceTree = "<group>"; };
+		CFACA02026D8FCCC0058B830 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		CFC3892D26D8D7BF00B0A5B5 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		CFC3892F26D8D7CF00B0A5B5 /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,6 +107,7 @@
 				CD30C925251474DC0049DB93 /* ContentView.swift */,
 				CFC3892D26D8D7BF00B0A5B5 /* WelcomeView.swift */,
 				CFC3892F26D8D7CF00B0A5B5 /* ExerciseView.swift */,
+				CFACA02026D8FCCC0058B830 /* HeaderView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				CD30C93F25147A8C0049DB93 /* DateExtension.swift in Sources */,
 				CD30C924251474DC0049DB93 /* HIITFitApp.swift in Sources */,
 				CD30C94025147A8C0049DB93 /* ImageExtension.swift in Sources */,
+				CFACA02126D8FCCC0058B830 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
