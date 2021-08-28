@@ -53,6 +53,7 @@ struct ExerciseView: View {
                 Text(Date().addingTimeInterval(interval), style: .timer)
                     .font(.system(size: 90))
                 Button("Start/Done", action: {}).padding().font(.title3)
+                RatingView().padding()
                 Spacer()
                 Button("History", action: {})
                     .padding(.bottom)
