@@ -31,45 +31,38 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import AVKit
 
-struct ExerciseView: View {
-  let videoNames = ["squat", "step-up", "burpee", "sun-salute"]
-  let exerciseNames = ["Squat", "Step Up", "Burpee", "Sun Salute"]
-  let index: Int
-  let interval: TimeInterval = 30
-
-  var body: some View {
-    GeometryReader { geometry in
-      VStack {
-        HeaderView(titleText: exerciseNames[index])
-          .padding(.bottom)
-        if let url = Bundle.main.url(
-          forResource: videoNames[index],
-          withExtension: "mp4") {
-          VideoPlayer(player: AVPlayer(url: url))
-            .frame(height: geometry.size.height * 0.45)
-        } else {
-          Text("Couldn't find \(videoNames[index]).mp4")
-            .foregroundColor(.red)
+struct SuccessView: View {
+    var body: some View {
+        ZStack {
+            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                Image(systemName: "hand.raised.fill")
+                    .resizedToFill(width: 100, height: 100)
+                    .foregroundColor(.purple)
+                    .padding()
+                Text("High Five!")
+                    .font(.largeTitle)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                Text("High FiveHigh FiveHigh FiveHigh FiveHigh FiveHigh FiveHigh FiveHigh Five")
+                    .foregroundColor(.gray)
+                    .multilineTextAlignment(.center)
+                    .frame(width: 300.0)
+                
+            }
+            
+            VStack {
+                Spacer()
+                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                    Text("Continue")
+                })
+                .padding(.bottom)
+            }
         }
-        Text(Date().addingTimeInterval(interval), style: .timer)
-          .font(.system(size: 90))
-        Button("Start/Done") { }
-          .font(.title3)
-          .padding()
-        RatingView()
-          .padding()
-        Spacer()
-        Button("History") { }
-          .padding(.bottom)
-      }
     }
-  }
 }
 
-struct ExerciseView_Previews: PreviewProvider {
-  static var previews: some View {
-    ExerciseView(index: 0)
-  }
+struct SuccessView_Previews: PreviewProvider {
+    static var previews: some View {
+        SuccessView()
+    }
 }
