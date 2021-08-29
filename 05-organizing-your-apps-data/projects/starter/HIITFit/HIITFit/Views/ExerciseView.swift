@@ -34,34 +34,32 @@ import SwiftUI
 import AVKit
 
 struct ExerciseView: View {
-  let videoNames = ["squat", "step-up", "burpee", "sun-salute"]
-  let exerciseNames = ["Squat", "Step Up", "Burpee", "Sun Salute"]
   let index: Int
   let interval: TimeInterval = 30
 
   var body: some View {
     GeometryReader { geometry in
       VStack {
-        HeaderView(titleText: exerciseNames[index])
+        HeaderView(titleText: Exercise.exercises[index].exerciseName)
           .padding(.bottom)
         if let url = Bundle.main.url(
-          forResource: videoNames[index],
+          forResource: Exercise.exercises[index].videoName,
           withExtension: "mp4") {
           VideoPlayer(player: AVPlayer(url: url))
             .frame(height: geometry.size.height * 0.45)
         } else {
-          Text("Couldn't find \(videoNames[index]).mp4")
+          Text("Couldn't find \(Exercise.exercises[index].videoName).mp4")
             .foregroundColor(.red)
         }
         Text(Date().addingTimeInterval(interval), style: .timer)
           .font(.system(size: 90))
-        Button("Start/Done") { }
+        Button(NSLocalizedString("Start/Done", comment: "begin exercise / mark as finished")) { }
           .font(.title3)
           .padding()
         RatingView()
           .padding()
         Spacer()
-        Button("History") { }
+        Button(NSLocalizedString("History", comment: "view user activity")) { }
           .padding(.bottom)
       }
     }
@@ -70,6 +68,6 @@ struct ExerciseView: View {
 
 struct ExerciseView_Previews: PreviewProvider {
   static var previews: some View {
-    ExerciseView(index: 0)
+    ExerciseView(index: 2)
   }
 }

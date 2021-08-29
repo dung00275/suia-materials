@@ -30,46 +30,37 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
 
-struct WelcomeView: View {
-  var body: some View {
-    ZStack {
-      VStack {
-        HeaderView(titleText: NSLocalizedString("Welcome", comment: "greeting"))
-        Spacer()
-        Button(NSLocalizedString("History", comment: "view user activity")) { }
-          .padding(.bottom)
-      }
-      VStack {
-        HStack(alignment: .bottom) {
-          VStack(alignment: .leading) {
-            Text(NSLocalizedString("Get fit", comment: "invitation to exercise"))
-              .font(.largeTitle)
-            Text("with high intensity interval training")
-              .font(.headline)
-          }
-          Image("step-up")
-            .resizedToFill(width: 240, height: 240)
-            .clipShape(Circle())
+struct Exercise {
+    let exerciseName: String
+    let videoName: String
+    
+    enum ExerciseEnum: String, CustomStringConvertible {
+        case squat = "Squat"
+        case stepUp = "Step Up"
+        case burpee = "Burpee"
+        case sunSalute = "Sun Salute"
+        
+        var description: String {
+            switch self {
+            case .burpee:
+                return NSLocalizedString("Squat", comment: "exercise")
+            case .squat:
+                return NSLocalizedString("Step Up", comment: "exercise")
+            case .stepUp:
+                return NSLocalizedString("Burpee", comment: "exercise")
+            case .sunSalute:
+                return NSLocalizedString("Sun Salute", comment: "yoga strech")
+            }
         }
-        // swiftlint:disable:next multiple_closures_with_trailing_closure
-        Button(action: { }) {
-          Text(NSLocalizedString("Get Started", comment: "invitation"))
-          Image(systemName: "arrow.right.circle")
-        }
-        .font(.title2)
-        .padding()
-        .background(
-          RoundedRectangle(cornerRadius: 20)
-          .stroke(Color.gray, lineWidth: 2))
-      }
     }
-  }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView()
-  }
+extension Exercise {
+    static let exercises: [Exercise] = [
+        .init(exerciseName: String(describing: ExerciseEnum.squat), videoName: "squat"),
+        .init(exerciseName: String(describing: ExerciseEnum.stepUp), videoName: "step-up"),
+        .init(exerciseName: String(describing: ExerciseEnum.burpee), videoName: "burpee"),
+        .init(exerciseName: String(describing: ExerciseEnum.sunSalute), videoName: "sun-salute")]
 }
