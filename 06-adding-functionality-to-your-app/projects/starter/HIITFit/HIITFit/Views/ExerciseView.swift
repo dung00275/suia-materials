@@ -34,42 +34,63 @@ import SwiftUI
 import AVKit
 
 struct ExerciseView: View {
-  let index: Int
-  let interval: TimeInterval = 30
-
-  var body: some View {
-    GeometryReader { geometry in
-      VStack {
-        HeaderView(
-          titleText: Exercise.exercises[index].exerciseName)
-          .padding(.bottom)
-        if let url = Bundle.main.url(
-          forResource: Exercise.exercises[index].videoName,
-          withExtension: "mp4") {
-          VideoPlayer(player: AVPlayer(url: url))
-            .frame(height: geometry.size.height * 0.45)
-        } else {
-          Text(
-            "Couldn't find \(Exercise.exercises[index].videoName).mp4")
-            .foregroundColor(.red)
-        }
-        Text(Date().addingTimeInterval(interval), style: .timer)
-          .font(.system(size: 90))
-        Button("Start/Done") { }
-          .font(.title3)
-          .padding()
-        RatingView()
-          .padding()
-        Spacer()
-        Button("History") { }
-          .padding(.bottom)
-      }
+    @Binding var seletedTab: Int
+    @State private var rating = 0
+    @State private var showHistory: Bool = false
+    @State private var showSuccess: Bool = false
+    let index: Int
+    let interval: TimeInterval = 30
+    var lastExercise: Bool {
+        return index + 1 == Exercise.exercises.count
     }
-  }
+    
+    var body: some View {
+        GeometryReader { geometry in
+            VStack {
+                HeaderView(
+                    selectedTab: $seletedTab, titleText: Exercise.exercises[index].exerciseName)
+                    .padding(.bottom)
+                if let url = Bundle.main.url(
+                    forResource: Exercise.exercises[index].videoName,
+                    withExtension: "mp4") {
+                    VideoPlayer(player: AVPlayer(url: url))
+                        .frame(height: geometry.size.height * 0.45)
+                } else {
+                    Text(
+                        "Couldn't find \(Exercise.exercises[index].videoName).mp4")
+                        .foregroundColor(.red)
+                }
+                Text(Date().addingTimeInterval(interval), style: .timer)
+                    .font(.system(size: 90))
+                HStack(spacing: 150) {
+                    Button("Start Execise", action: {})
+                        .font(.title3)
+                    Button("Done", action: {
+                        if lastExercise {
+                            showSuccess.toggle()
+                        } else {
+                            seletedTab += 1
+                        }
+                    }).font(.title3)
+                    .sheet(isPresented: $showSuccess, content: {
+                        SuccessView(selectedTab: $seletedTab)
+                    })
+                }.padding()
+                RatingView(rating: $rating)
+                    .padding()
+                Spacer()
+                Button("History") { showHistory.toggle() }
+                    .sheet(isPresented: $showHistory, content: {
+                        HistoryView(showHistory: $showHistory)
+                    })
+                    .padding(.bottom)
+            }
+        }
+    }
 }
 
 struct ExerciseView_Previews: PreviewProvider {
-  static var previews: some View {
-    ExerciseView(index: 0)
-  }
+    static var previews: some View {
+        ExerciseView(seletedTab: .constant(9), index: 0)
+    }
 }
