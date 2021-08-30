@@ -33,12 +33,29 @@
 import SwiftUI
 
 struct RatingView: View {
-    @AppStorage("ratings") private var ratings = "0000"
+    @AppStorage("ratings") private var ratings = ""
     @State private var rating = 0
     let maximumRating = 5
     let exerciseIndex: Int
     let onColor = Color.red
     let offColor = Color.gray
+    
+    init(exerciseIndex: Int) {
+        self.exerciseIndex = exerciseIndex
+        
+        let desiredLenght = Exercise.exercises.count
+        if ratings.count < desiredLenght {
+            ratings = ratings.padding(toLength: desiredLenght,
+                                      withPad: "0",
+                                      startingAt: 0)
+        }
+    }
+    
+    fileprivate func convertRating() {
+        let index = ratings.index(ratings.startIndex, offsetBy: exerciseIndex)
+        let character = ratings[index]
+        rating = character.wholeNumberValue ?? 0
+    }
     
     var body: some View {
         HStack {
@@ -49,10 +66,10 @@ struct RatingView: View {
                     .onTapGesture {
                         updateRating(index: index)
                     }.onAppear {
-                        let index = ratings.index(ratings.startIndex, offsetBy: exerciseIndex)
-                        let character = ratings[index]
-                        rating = character.wholeNumberValue ?? 0
-                    }
+                        convertRating()
+                    }.onChange(of: ratings, perform: { value in
+                        convertRating()
+                    })
             }
         }
         .font(.largeTitle)
