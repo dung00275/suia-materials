@@ -61,3 +61,11 @@ extension Date {
     return dateFormatter.string(from: self)
   }
 }
+
+func cast<T>(_ value: Any) -> T? {
+    return value as? T
+}
+
+func castOrNil<T>(_ value: Any, default: @autoclosure () -> T) -> T {
+    return (value as? T) ?? `default`()
+}

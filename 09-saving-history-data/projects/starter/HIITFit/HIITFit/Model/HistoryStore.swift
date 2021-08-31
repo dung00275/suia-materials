@@ -57,8 +57,49 @@ class HistoryStore: ObservableObject {
         try load()
     }
     
+    func getURL() -> URL? {
+        guard let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        return documentURL.appendingPathComponent("history.plist")
+    }
+    
+    func save() throws {
+        guard let dataURL = getURL() else {
+            throw FileError.urlFailure
+        }
+        var plistData = [[Any]]()
+        exerciseDays.forEach { exerciseDay in
+            let items: [Any] = [exerciseDay.id.uuidString, exerciseDay.date, exerciseDay.exercises]
+            plistData.append(items)
+        }
+        do {
+            let data = try PropertyListSerialization.data(fromPropertyList: plistData,
+                                                          format: .binary,
+                                                          options: .zero)
+            try data.write(to: dataURL, options: .atomic)
+        } catch {
+            throw FileError.saveFailure
+        }
+    }
+    
     func load() throws  {
-        throw FileError.loadFailure
+        guard let dataURL = getURL() else {
+            throw FileError.loadFailure
+        }
+        do {
+            guard let data = try? Data(contentsOf: dataURL) else { return }
+            let plistData = try PropertyListSerialization.propertyList(from: data, options: [], format: nil)
+            
+            let convertListData = (plistData as? [[Any]]) ?? []
+            exerciseDays = convertListData.map {
+                ExerciseDay(date: castOrNil($0[1], default: Date()),
+                            exercises: castOrNil($0[2], default: []))
+            }
+            
+        } catch {
+            throw FileError.loadFailure
+        }
     }
     
     func addDoneExercise(_ exerciseName: String) {
@@ -74,5 +115,10 @@ class HistoryStore: ObservableObject {
         }
         print("Done")
         print(exerciseDays.count)
+        do {
+            try save()
+        } catch {
+            fatalError(error.localizedDescription)
+        }
     }
 }

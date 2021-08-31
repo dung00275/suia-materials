@@ -35,12 +35,14 @@ import SwiftUI
 @main
 struct HIITFitApp: App {
     @StateObject private var historyStore: HistoryStore
+    @State private var showAlert = false
     init() {
         let historyStore: HistoryStore
         do {
             historyStore = try HistoryStore(withChecking: true)
         } catch {
             historyStore = HistoryStore()
+            showAlert = true
         }
         _historyStore = StateObject(wrappedValue: historyStore)
     }
@@ -51,7 +53,14 @@ struct HIITFitApp: App {
                     print(FileManager.default.urls(
                             for: .documentDirectory,
                             in: .userDomainMask))
-                }.environmentObject(historyStore)
+                }.environmentObject(historyStore).alert(isPresented: $showAlert, content: {
+                    Alert(title: Text("History"),
+                          message: Text("""
+                            Unfortunately we can't load your past history
+                            Email support:
+                               support@xyz.com
+                            """))
+                })
         }
     }
 }
