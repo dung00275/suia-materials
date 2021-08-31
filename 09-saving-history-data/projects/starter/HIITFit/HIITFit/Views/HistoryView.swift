@@ -31,11 +31,12 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import Combine
 
 struct HistoryView: View {
   @Binding var showHistory: Bool
   @EnvironmentObject var history: HistoryStore
-
+    
   var body: some View {
     ZStack(alignment: .topTrailing) {
       // swiftlint:disable:next multiple_closures_with_trailing_closure
@@ -62,6 +63,7 @@ struct HistoryView: View {
         }
       }
     }
+    .padding(.top)
   }
 }
 

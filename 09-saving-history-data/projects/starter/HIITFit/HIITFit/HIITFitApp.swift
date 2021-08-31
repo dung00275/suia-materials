@@ -34,14 +34,24 @@ import SwiftUI
 
 @main
 struct HIITFitApp: App {
-  var body: some Scene {
-    WindowGroup {
-      ContentView()
-        .onAppear {
-          print(FileManager.default.urls(
-            for: .documentDirectory,
-            in: .userDomainMask))
+    @StateObject private var historyStore: HistoryStore
+    init() {
+        let historyStore: HistoryStore
+        do {
+            historyStore = try HistoryStore(withChecking: true)
+        } catch {
+            historyStore = HistoryStore()
+        }
+        _historyStore = StateObject(wrappedValue: historyStore)
+    }
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .onAppear {
+                    print(FileManager.default.urls(
+                            for: .documentDirectory,
+                            in: .userDomainMask))
+                }.environmentObject(historyStore)
         }
     }
-  }
 }

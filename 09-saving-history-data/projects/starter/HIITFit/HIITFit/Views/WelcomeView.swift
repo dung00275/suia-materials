@@ -45,6 +45,7 @@ struct WelcomeView: View {
           showHistory.toggle()
         }
         .sheet(isPresented: $showHistory) {
+//            HistoryView(
           HistoryView(showHistory: $showHistory)
         }
           .padding(.bottom)
