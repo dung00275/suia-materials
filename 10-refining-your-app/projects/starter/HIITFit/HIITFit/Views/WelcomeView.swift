@@ -33,51 +33,58 @@
 import SwiftUI
 
 struct WelcomeView: View {
-  @State private var showHistory = false
-  @Binding var selectedTab: Int
-
-  var body: some View {
-    ZStack {
-      VStack {
-        HeaderView(selectedTab: $selectedTab, titleText: "Welcome")
-        Spacer()
-        Button("History") {
-          showHistory.toggle()
-        }
-        .sheet(isPresented: $showHistory) {
-          HistoryView(showHistory: $showHistory)
-        }
-        .padding(.bottom)
-      }
-      VStack {
-        HStack(alignment: .bottom) {
-          VStack(alignment: .leading) {
-            Text("Get fit")
-              .font(.largeTitle)
-            Text("with high intensity interval training")
-              .font(.headline)
-          }
-          Image("step-up")
-            .resizedToFill(width: 240, height: 240)
-            .clipShape(Circle())
-        }
-        // swiftlint:disable:next multiple_closures_with_trailing_closure
-        Button(action: { selectedTab = 0 }) {
-          Text("Get Started")
-          Image(systemName: "arrow.right.circle")
-        }
-        .font(.title2)
-        .padding()
-        .background(
-          RoundedRectangle(cornerRadius: 20)
-            .stroke(Color.gray, lineWidth: 2))
-      }
+    @State private var showHistory = false
+    @Binding var selectedTab: Int
+    
+    var getStartedButton: some View {
+        RaisedButton(buttonText: "Get Started",
+                     action: { selectedTab = 0 })
+            .padding()
     }
-  }
+    
+    var historyButton: some View {
+        Button(action: {
+            showHistory = true
+        }, label: {
+            Text("History")
+                .fontWeight(.bold).padding([.leading, .trailing], 5)
+        })
+        .padding(.bottom)
+        .buttonStyle(EmbossedButtonStyle())
+    }
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                HeaderView(selectedTab: $selectedTab, titleText: "Welcome")
+                Spacer()
+                historyButton
+                .sheet(isPresented: $showHistory) {
+                    HistoryView(showHistory: $showHistory)
+                }
+                .padding(.bottom)
+            }
+            VStack {
+                HStack(alignment: .bottom) {
+                    VStack(alignment: .leading) {
+                        Text("Get fit")
+                            .font(.largeTitle)
+                        Text("with high intensity interval training")
+                            .font(.headline)
+                    }
+                    Image("step-up")
+                        .resizedToFill(width: 240, height: 240)
+                        .clipShape(Circle())
+                }
+                // swiftlint:disable:next multiple_closures_with_trailing_closure
+                getStartedButton
+            }
+        }
+    }
 }
 
 struct WelcomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    WelcomeView(selectedTab: .constant(9))
-  }
+    static var previews: some View {
+        WelcomeView(selectedTab: .constant(9))
+    }
 }
