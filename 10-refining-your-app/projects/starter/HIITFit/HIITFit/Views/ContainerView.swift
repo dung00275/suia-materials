@@ -32,54 +32,38 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
-    @State private var showHistory = false
-    @Binding var selectedTab: Int
+struct ContainerView<Content: View>: View {
+    var content: Content
     
-    var getStartedButton: some View {
-        RaisedButton(buttonText: "Get Started",
-                     action: { selectedTab = 0 })
-            .padding()
+    init(@ViewBuilder content:() -> Content) {
+        self.content = content()
     }
-    
-    var historyButton: some View {
-        Button(action: {
-            showHistory = true
-        }, label: {
-            Text("History")
-                .fontWeight(.bold).padding([.leading, .trailing], 5)
-        })
-        .padding(.bottom)
-        .buttonStyle(EmbossedButtonStyle())
-    }
-    
     var body: some View {
-        GeometryReader { geometryReader in
+        ZStack {
+            RoundedRectangle(cornerRadius: 25.0)
+                .foregroundColor(Color("background"))
             VStack {
-                HeaderView(selectedTab: $selectedTab, titleText: "Welcome")
                 Spacer()
-                ContainerView {
-                    VStack {
-                        WelcomeView.images
-                        WelcomeView.welcomeText
-                        getStartedButton
-                        Spacer()
-                        historyButton
-                    }
-                }.frame(height: geometryReader.size.height * 0.8)
-            }.sheet(isPresented: $showHistory) {
-                HistoryView(showHistory: $showHistory)
+                Rectangle().frame(height: 25)
+                    .foregroundColor(Color("background"))
             }
+            content
         }
     }
 }
 
-struct WelcomeView_Previews: PreviewProvider {
+struct ContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        Group {
-            WelcomeView(selectedTab: .constant(9))
-            WelcomeView(selectedTab: .constant(9))
-                .previewDevice("iPhone 8")
+        ContainerView {
+            VStack {
+                RaisedButton(buttonText: "Hello world") {}
+                    .padding(50)
+                Button(action: {}, label: {
+                    Text("Tap me!")
+                }).buttonStyle(EmbossedButtonStyle(buttonShape: .round))
+            }
         }
+        .padding(50)
+        .previewLayout(.sizeThatFits)
     }
 }
