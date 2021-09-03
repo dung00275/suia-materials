@@ -50,7 +50,7 @@ struct AddThingView: View {
                 presentationMode.wrappedValue.dismiss()
             }
             Spacer()
-        }
+        }.environment(\.textCase, nil)
     }
 }
 
