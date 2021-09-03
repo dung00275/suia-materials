@@ -13,6 +13,7 @@
 		CD74C98C2578A422004C8694 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD74C98B2578A422004C8694 /* Preview Assets.xcassets */; };
 		CD74C9982579C149004C8694 /* AddThingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD74C9972579C149004C8694 /* AddThingView.swift */; };
 		CDA02208260AE6C700AF2BCF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDA02206260AE6C700AF2BCF /* LaunchScreen.storyboard */; };
+		CF36951926E1D2E500E9004F /* ThingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36951826E1D2E500E9004F /* ThingStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		CD74C98D2578A422004C8694 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD74C9972579C149004C8694 /* AddThingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddThingView.swift; sourceTree = "<group>"; };
 		CDA02207260AE6C700AF2BCF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CF36951826E1D2E500E9004F /* ThingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThingStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		CD74C9832578A41F004C8694 /* TIL */ = {
 			isa = PBXGroup;
 			children = (
+				CF36951726E1D2CE00E9004F /* Models */,
 				CD74C9842578A41F004C8694 /* TILApp.swift */,
 				CD74C9862578A41F004C8694 /* ContentView.swift */,
 				CD74C9972579C149004C8694 /* AddThingView.swift */,
@@ -73,6 +76,14 @@
 				CD74C98B2578A422004C8694 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CF36951726E1D2CE00E9004F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CF36951826E1D2E500E9004F /* ThingStore.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -170,6 +181,7 @@
 			files = (
 				CD74C9872578A41F004C8694 /* ContentView.swift in Sources */,
 				CD74C9852578A41F004C8694 /* TILApp.swift in Sources */,
+				CF36951926E1D2E500E9004F /* ThingStore.swift in Sources */,
 				CD74C9982579C149004C8694 /* AddThingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

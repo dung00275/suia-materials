@@ -33,20 +33,29 @@
 import SwiftUI
 
 struct AddThingView: View {
-  @Environment(\.presentationMode) var presentationMode
-
-  var body: some View {
-    VStack {
-      Button("Done") {
-        presentationMode.wrappedValue.dismiss()
-      }
-      Spacer()
+    @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var someThings: ThingStore
+    @State private var things: String = ""
+    
+    var body: some View {
+        VStack {
+            TextField("Thing I learned", text: $things)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+                .disableAutocorrection(true)
+            Button("Done") {
+                if !things.isEmpty {
+                    someThings.things.append(things)
+                }
+                presentationMode.wrappedValue.dismiss()
+            }
+            Spacer()
+        }
     }
-  }
 }
 
 struct AddThingView_Previews: PreviewProvider {
-  static var previews: some View {
-    AddThingView()
-  }
+    static var previews: some View {
+        AddThingView(someThings: ThingStore())
+    }
 }

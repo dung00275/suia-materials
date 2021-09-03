@@ -62,6 +62,38 @@ struct ExerciseView: View {
         index + 1 == Exercise.exercises.count
     }
     
+    var doneButton: some View {
+        Button("Done") {
+            history.addDoneExercise(Exercise.exercises[index].exerciseName)
+            timerDone = false
+            showTimer.toggle()
+            if lastExercise {
+                showSuccess.toggle()
+            } else {
+                selectedTab += 1
+            }
+        }
+        .sheet(isPresented: $showSuccess) {
+            SuccessView(selectedTab: $selectedTab)
+        }
+    }
+    
+    @ViewBuilder
+    private func videoView(size: CGSize) -> some View {
+        if let url = Bundle.main.url(
+            forResource: Exercise.exercises[index].videoName,
+            withExtension: "mp4") {
+            VideoPlayer(player: AVPlayer(url: url))
+                .frame(height: size.height * 0.25)
+                .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                .padding(25)
+        } else {
+            Text(
+                "Couldn't find \(Exercise.exercises[index].videoName).mp4")
+                .foregroundColor(.red)
+        }
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -71,34 +103,11 @@ struct ExerciseView: View {
                     .padding(.bottom)
                 ContainerView {
                     VStack {
-                        if let url = Bundle.main.url(
-                            forResource: Exercise.exercises[index].videoName,
-                            withExtension: "mp4") {
-                            VideoPlayer(player: AVPlayer(url: url))
-                                .frame(height: geometry.size.height * 0.25)
-                                .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                                .padding(25)
-                        } else {
-                            Text(
-                                "Couldn't find \(Exercise.exercises[index].videoName).mp4")
-                                .foregroundColor(.red)
-                        }
+                        videoView(size: geometry.size)
                         HStack(spacing: 150) {
                             startExerciseButton
                             if timerDone {
-                                Button("Done") {
-                                    history.addDoneExercise(Exercise.exercises[index].exerciseName)
-                                    timerDone = false
-                                    showTimer.toggle()
-                                    if lastExercise {
-                                        showSuccess.toggle()
-                                    } else {
-                                        selectedTab += 1
-                                    }
-                                }
-                                .sheet(isPresented: $showSuccess) {
-                                    SuccessView(selectedTab: $selectedTab)
-                                }
+                                doneButton
                             }
                         }
                         .font(.title3)
@@ -112,7 +121,7 @@ struct ExerciseView: View {
                         historyButton
                             .sheet(isPresented: $showHistory) {
                                 HistoryView(showHistory: $showHistory)
-                            }.padding(.bottom)
+                            }
                     }
                 }
                 .edgesIgnoringSafeArea(.bottom)
