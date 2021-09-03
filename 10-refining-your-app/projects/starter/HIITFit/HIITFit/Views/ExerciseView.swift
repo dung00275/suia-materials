@@ -69,46 +69,53 @@ struct ExerciseView: View {
                     selectedTab: $selectedTab,
                     titleText: Exercise.exercises[index].exerciseName)
                     .padding(.bottom)
-                if let url = Bundle.main.url(
-                    forResource: Exercise.exercises[index].videoName,
-                    withExtension: "mp4") {
-                    VideoPlayer(player: AVPlayer(url: url))
-                        .frame(height: geometry.size.height * 0.45)
-                } else {
-                    Text(
-                        "Couldn't find \(Exercise.exercises[index].videoName).mp4")
-                        .foregroundColor(.red)
-                }
-                HStack(spacing: 150) {
-                    startExerciseButton
-                    Button("Done") {
-                        history.addDoneExercise(Exercise.exercises[index].exerciseName)
-                        timerDone = false
-                        showTimer.toggle()
-                        if lastExercise {
-                            showSuccess.toggle()
+                ContainerView {
+                    VStack {
+                        if let url = Bundle.main.url(
+                            forResource: Exercise.exercises[index].videoName,
+                            withExtension: "mp4") {
+                            VideoPlayer(player: AVPlayer(url: url))
+                                .frame(height: geometry.size.height * 0.25)
+                                .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                                .padding(25)
                         } else {
-                            selectedTab += 1
+                            Text(
+                                "Couldn't find \(Exercise.exercises[index].videoName).mp4")
+                                .foregroundColor(.red)
                         }
+                        HStack(spacing: 150) {
+                            startExerciseButton
+                            if timerDone {
+                                Button("Done") {
+                                    history.addDoneExercise(Exercise.exercises[index].exerciseName)
+                                    timerDone = false
+                                    showTimer.toggle()
+                                    if lastExercise {
+                                        showSuccess.toggle()
+                                    } else {
+                                        selectedTab += 1
+                                    }
+                                }
+                                .sheet(isPresented: $showSuccess) {
+                                    SuccessView(selectedTab: $selectedTab)
+                                }
+                            }
+                        }
+                        .font(.title3)
+                        .padding()
+                        if showTimer {
+                            TimerView(timerDone: $timerDone)
+                        }
+                        RatingView(exerciseIndex: index)
+                            .padding()
+                        Spacer()
+                        historyButton
+                            .sheet(isPresented: $showHistory) {
+                                HistoryView(showHistory: $showHistory)
+                            }.padding(.bottom)
                     }
-                    .disabled(!timerDone)
-                    .sheet(isPresented: $showSuccess) {
-                        SuccessView(selectedTab: $selectedTab)
-                    }
                 }
-                .font(.title3)
-                .padding()
-                if showTimer {
-                    TimerView(timerDone: $timerDone)
-                }
-                Spacer()
-                RatingView(exerciseIndex: index)
-                    .padding()
-                historyButton
-                .sheet(isPresented: $showHistory) {
-                    HistoryView(showHistory: $showHistory)
-                }
-                .padding(.bottom)
+                .edgesIgnoringSafeArea(.bottom)
             }
         }
     }

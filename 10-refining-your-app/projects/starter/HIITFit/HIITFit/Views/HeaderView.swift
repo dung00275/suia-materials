@@ -33,36 +33,52 @@
 import SwiftUI
 
 struct HeaderView: View {
-  @Binding var selectedTab: Int
-  let titleText: String
-
-  var body: some View {
-    VStack {
-      Text(titleText)
-        .font(.largeTitle)
-      HStack {
-        ForEach(0 ..< Exercise.exercises.count) { index in
-          let fill = index == selectedTab ? ".fill" : ""
-          Image(systemName: "\(index + 1).circle\(fill)")
-            .onTapGesture {
-              selectedTab = index
+    @Binding var selectedTab: Int
+    let titleText: String
+    var body: some View {
+        VStack {
+            Text(titleText)
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+                .foregroundColor(Color.white)
+            
+            HStack(alignment: .center, spacing: 10) {
+                ForEach(0 ..< Exercise.exercises.count) { index in
+                    ZStack {
+                        if index == selectedTab {
+                            Circle()
+                                .foregroundColor(Color.white
+                                                        .opacity(0.8))
+                        }
+                        Circle()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(.white)
+                            .onTapGesture {
+                                selectedTab = index
+                            }
+                    }.frame(width: 50, height: 50)
+                    .foregroundColor(Color.clear)
+                    .onTapGesture {
+                        selectedTab = index
+                    }
+                }
             }
+            .font(.title2)
         }
-      }
-      .font(.title2)
     }
-  }
 }
 
 struct HeaderView_Previews: PreviewProvider {
-  static var previews: some View {
-    Group {
-      HeaderView(selectedTab: .constant(0), titleText: "Squat")
-        .previewLayout(.sizeThatFits)
-      HeaderView(selectedTab: .constant(1), titleText: "Step Up")
-        .preferredColorScheme(.dark)
-        .environment(\.sizeCategory, .accessibilityLarge)
-        .previewLayout(.sizeThatFits)
+    static var previews: some View {
+        Group {
+            HeaderView(selectedTab: .constant(0), titleText: "Squat")
+                .previewLayout(.sizeThatFits)
+                .background(RoundedRectangle(cornerRadius: 0)
+                                .foregroundColor(.blue))
+            HeaderView(selectedTab: .constant(1), titleText: "Step Up")
+                .preferredColorScheme(.dark)
+                .environment(\.sizeCategory, .accessibilityLarge)
+                .previewLayout(.sizeThatFits)
+        }
     }
-  }
 }
