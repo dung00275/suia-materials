@@ -32,38 +32,10 @@
 
 import SwiftUI
 
-
-struct CardDetailView: View {
-    @EnvironmentObject var viewState: ViewState
-    @State private var currentModal: CardModal?
-    
-    var content: some View {
-        ZStack {
-            Group {
-                Capsule()
-                    .foregroundColor(.yellow)
-                Text("Resize Me!")
-                    .font(.system(size: 500))
-                    .fontWeight(.bold)
-                    .minimumScaleFactor(0.01)
-                    .lineLimit(1)
-            }.resizeableView()
-            
-            Circle()
-                .resizeableView()
-                .offset(CGSize(width: 50, height: 200))
-        }
-    }
-    
-    var body: some View {
-        content
-            .modifier(CardToolbar(currentModal: $currentModal))
-    }
-}
-
-struct CardDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardDetailView()
-            .environmentObject(ViewState())
-    }
+struct Settings {
+    static let thumbnailSize = CGSize(width: 150, height: 250)
+    static let defaultElementSize = CGSize(width: 250, height: 180)
+    static let borderColor = Color.blue
+    static let borderWidth: CGFloat = 5
+    private init() {}
 }

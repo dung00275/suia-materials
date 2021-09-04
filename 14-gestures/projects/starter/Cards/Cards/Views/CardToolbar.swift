@@ -32,38 +32,31 @@
 
 import SwiftUI
 
-
-struct CardDetailView: View {
+struct CardToolbar: ViewModifier {
     @EnvironmentObject var viewState: ViewState
-    @State private var currentModal: CardModal?
-    
-    var content: some View {
-        ZStack {
-            Group {
-                Capsule()
-                    .foregroundColor(.yellow)
-                Text("Resize Me!")
-                    .font(.system(size: 500))
-                    .fontWeight(.bold)
-                    .minimumScaleFactor(0.01)
-                    .lineLimit(1)
-            }.resizeableView()
-            
-            Circle()
-                .resizeableView()
-                .offset(CGSize(width: 50, height: 200))
+    @Binding var currentModal: CardModal?
+    func body(content: Content) -> some View {
+        content.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                // swiftlint:disable:next multiple_closures_with_trailing_closure
+                Button(action: { viewState.showAllCards.toggle() }) {
+                    Text("Done")
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                CardBottomToolbar(cardModal: $currentModal)
+            }
         }
-    }
-    
-    var body: some View {
-        content
-            .modifier(CardToolbar(currentModal: $currentModal))
     }
 }
 
-struct CardDetailView_Previews: PreviewProvider {
+struct CardToolbar_Previews: PreviewProvider {
     static var previews: some View {
-        CardDetailView()
-            .environmentObject(ViewState())
+        NavigationView {
+            Text("Text")
+                .environmentObject(ViewState())
+                .modifier(CardToolbar(currentModal: .constant(nil)))
+        }
+//        CardToolbar()
     }
 }

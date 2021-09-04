@@ -35,8 +35,8 @@ import SwiftUI
 struct CardThumbnailView: View {
   var body: some View {
     RoundedRectangle(cornerRadius: 15)
-      .foregroundColor(.gray)
-      .frame(width: 150, height: 250)
+        .foregroundColor(Color.random())
+        .frame(size: Settings.thumbnailSize)
   }
 }
 
