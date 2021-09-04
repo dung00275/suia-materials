@@ -19,6 +19,9 @@
 		82F3FAC725C6371000BB30D0 /* CardDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAC625C6371000BB30D0 /* CardDetailView.swift */; };
 		82F3FACA25C638DD00BB30D0 /* CardModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAC925C638DD00BB30D0 /* CardModal.swift */; };
 		82F3FACD25C638F200BB30D0 /* CardBottomToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FACC25C638F200BB30D0 /* CardBottomToolbar.swift */; };
+		CF36954826E3117E00E9004F /* ResizeableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36954726E3117E00E9004F /* ResizeableView.swift */; };
+		CF36954A26E3125400E9004F /* Transform.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36954926E3125400E9004F /* Transform.swift */; };
+		CF36954D26E3158400E9004F /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36954C26E3158400E9004F /* Operators.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +39,9 @@
 		82F3FAC625C6371000BB30D0 /* CardDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDetailView.swift; sourceTree = "<group>"; };
 		82F3FAC925C638DD00BB30D0 /* CardModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardModal.swift; sourceTree = "<group>"; };
 		82F3FACC25C638F200BB30D0 /* CardBottomToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBottomToolbar.swift; sourceTree = "<group>"; };
+		CF36954726E3117E00E9004F /* ResizeableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizeableView.swift; sourceTree = "<group>"; };
+		CF36954926E3125400E9004F /* Transform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transform.swift; sourceTree = "<group>"; };
+		CF36954C26E3158400E9004F /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,7 @@
 		82F3FA9D25C62C1000BB30D0 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
+				CF36954B26E3156F00E9004F /* Helpers */,
 				82F3FA9E25C62C1000BB30D0 /* CardsApp.swift */,
 				82F3FAD025C63DE100BB30D0 /* Views */,
 				82F3FAD225C63DFB00BB30D0 /* Model */,
@@ -93,6 +100,7 @@
 				82F3FAC225C62FCB00BB30D0 /* CardsView.swift */,
 				82F3FAB225C62CDC00BB30D0 /* CardsListView.swift */,
 				82F3FAB525C62D6100BB30D0 /* CardThumbnailView.swift */,
+				CF36954726E3117E00E9004F /* ResizeableView.swift */,
 				82F3FAD125C63DEA00BB30D0 /* Single Card Views */,
 			);
 			path = Views;
@@ -113,8 +121,17 @@
 			children = (
 				82F3FAC925C638DD00BB30D0 /* CardModal.swift */,
 				82F3FABB25C62F6200BB30D0 /* ViewState.swift */,
+				CF36954926E3125400E9004F /* Transform.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		CF36954B26E3156F00E9004F /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				CF36954C26E3158400E9004F /* Operators.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,13 +228,16 @@
 			files = (
 				82F3FAC325C62FCB00BB30D0 /* CardsView.swift in Sources */,
 				82F3FAA125C62C1000BB30D0 /* ContentView.swift in Sources */,
+				CF36954826E3117E00E9004F /* ResizeableView.swift in Sources */,
 				82F3FAB325C62CDC00BB30D0 /* CardsListView.swift in Sources */,
 				82F3FABC25C62F6200BB30D0 /* ViewState.swift in Sources */,
 				82F3FA9F25C62C1000BB30D0 /* CardsApp.swift in Sources */,
 				82F3FAB925C62DEB00BB30D0 /* SingleCardView.swift in Sources */,
 				82F3FACD25C638F200BB30D0 /* CardBottomToolbar.swift in Sources */,
 				82F3FAB625C62D6100BB30D0 /* CardThumbnailView.swift in Sources */,
+				CF36954D26E3158400E9004F /* Operators.swift in Sources */,
 				82F3FACA25C638DD00BB30D0 /* CardModal.swift in Sources */,
+				CF36954A26E3125400E9004F /* Transform.swift in Sources */,
 				82F3FAC725C6371000BB30D0 /* CardDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
