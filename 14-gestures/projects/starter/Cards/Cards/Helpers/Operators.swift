@@ -39,3 +39,7 @@ func +(left: CGSize, right: CGSize) -> CGSize {
 func +=(left: inout CGSize, right: CGSize) {
     left = left + right
 }
+
+func *=(left: inout CGSize, scale: CGFloat) {
+    left = .init(width: left.width * scale, height: left.height * scale)
+}

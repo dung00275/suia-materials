@@ -35,20 +35,40 @@ import SwiftUI
 struct ResizeableView: View {
     @State private var transform = Transform()
     @State private var previousOffset = CGSize.zero
+    @State private var previousAngle = Angle.zero
+    @State private var scale: CGFloat = 1.0
     
     private let content = RoundedRectangle(cornerRadius: 30)
     private let color = Color.red
     var body: some View {
         let dragGesture = DragGesture().onChanged { value in
             transform.offset = previousOffset + value.translation
-        }.onEnded { _ in
+        }.onEnded { value in
             previousOffset = transform.offset
         }
+        
+        let rotationGesture = RotationGesture().onChanged { value in
+            transform.rotation += value - previousAngle
+            previousAngle = value
+        }.onEnded { _ in
+            previousAngle = .zero
+        }
+        
+        let scaleGesture = MagnificationGesture().onChanged { scale in
+            self.scale = scale
+        }.onEnded { scale in
+            transform.size *= scale
+            self.scale = 1.0
+        }
+        
         content
             .frame(size: transform.size)
             .foregroundColor(color)
+            .rotationEffect(transform.rotation)
+            .scaleEffect(scale)
             .offset(transform.offset)
             .gesture(dragGesture)
+            .gesture(SimultaneousGesture(rotationGesture, scaleGesture))
     }
 }
 
@@ -61,6 +81,6 @@ extension View {
 struct ResizeableView_Previews: PreviewProvider {
     static var previews: some View {
         ResizeableView()
-//            .previewLayout(.sizeThatFits)
+        //            .previewLayout(.sizeThatFits)
     }
 }
