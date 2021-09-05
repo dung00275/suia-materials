@@ -32,59 +32,41 @@
 
 import SwiftUI
 
-
-struct CardDetailView: View {
-    @EnvironmentObject var viewState: ViewState
-    @State private var currentModal: CardModal?
-    @Binding var card: Card
-    
+struct CardElementView: View {
+    let element: CardElement
     var body: some View {
-        content
-            .modifier(CardToolbar(currentModal: $currentModal))
-    }
-    
-    var content: some View {
-        ZStack {
-            card.backgroundColor
-                .edgesIgnoringSafeArea(.all)
-            ForEach(card.elements, id: \.id) { element in
-                CardElementView(element: element).contextMenu(menuItems: {
-                    Button(action: { card.remove(element) }, label: {
-                        Label("Delete", systemImage: "trash")
-                    })
-                })
-                .resizableView(transform: bindingTransform(for: element))
-                .frame(size: element.transform.size)
-            }
+        if let element = element as? ImageElement {
+            ImageElementView(element: element)
         }
-    }
-    
-    func bindingTransform(for element: CardElement) -> Binding<Transform> {
-        guard let index = element.index(array: card.elements) else {
-            fatalError("Element not exist")
+        if let element = element as? TextElement {
+            TextElementView(element: element)
         }
-        return $card.elements[index].transform
     }
 }
 
-struct CardDetailView_Previews: PreviewProvider {
-    struct CardDetailPreview: View {
-        @State private var card = initialCards[0]
-        var body: some View {
-            CardDetailView(card: $card)
-                .environmentObject(ViewState())
+struct ImageElementView: View {
+    let element: ImageElement
+    var body: some View {
+        element
+            .image
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+    }
+}
+
+struct TextElementView: View {
+    let element: TextElement
+    var body: some View {
+        if !element.text.isEmpty {
+            Text(element.text)
+            .font(.custom(element.textFont, size: 200))
+                .foregroundColor(element.textColor).scalableText()
         }
     }
-    
+}
+
+struct CardElementView_Previews: PreviewProvider {
     static var previews: some View {
-        CardDetailPreview()
-    }
-}
-
-extension View {
-    func frame(size: CGSize, alignment: Alignment = .center) -> some View {
-        self.frame(width: size.width,
-                   height: size.height,
-                   alignment: alignment)
+        CardElementView(element: initialElements[3])
     }
 }

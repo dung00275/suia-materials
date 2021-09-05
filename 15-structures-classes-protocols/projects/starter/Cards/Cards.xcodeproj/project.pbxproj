@@ -32,6 +32,7 @@
 		CF36955726E35B9D00E9004F /* CardElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36955626E35B9D00E9004F /* CardElement.swift */; };
 		CF36955926E35C1400E9004F /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36955826E35C1400E9004F /* Card.swift */; };
 		CF36955B26E35D0600E9004F /* CardStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36955A26E35D0600E9004F /* CardStore.swift */; };
+		CF36955D26E4A27F00E9004F /* CardElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF36955C26E4A27E00E9004F /* CardElementView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		CF36955626E35B9D00E9004F /* CardElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardElement.swift; sourceTree = "<group>"; };
 		CF36955826E35C1400E9004F /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		CF36955A26E35D0600E9004F /* CardStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStore.swift; sourceTree = "<group>"; };
+		CF36955C26E4A27E00E9004F /* CardElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardElementView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				82F3FAB525C62D6100BB30D0 /* CardThumbnailView.swift */,
 				82F3FAD525C652FD00BB30D0 /* ResizableView.swift */,
 				82F3FAD125C63DEA00BB30D0 /* Single Card Views */,
+				CF36955C26E4A27E00E9004F /* CardElementView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				82F3FAE725C65C8400BB30D0 /* Settings.swift in Sources */,
 				82F3FAB625C62D6100BB30D0 /* CardThumbnailView.swift in Sources */,
 				82F3FADE25C6564000BB30D0 /* Operators.swift in Sources */,
+				CF36955D26E4A27F00E9004F /* CardElementView.swift in Sources */,
 				CF36955926E35C1400E9004F /* Card.swift in Sources */,
 				82F3FACA25C638DD00BB30D0 /* CardModal.swift in Sources */,
 				82F3FADB25C6545100BB30D0 /* Transform.swift in Sources */,

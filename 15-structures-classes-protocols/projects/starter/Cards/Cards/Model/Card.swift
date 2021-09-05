@@ -36,4 +36,11 @@ struct Card: Identifiable {
     let id = UUID()
     var backgroundColor = Color.yellow
     var elements = [CardElement]()
+    
+    mutating func remove(_ element: CardElement) {
+        guard let index = elements.firstIndex(where: { $0.id == element.id }) else {
+            return
+        }
+        elements.remove(at: index)
+    }
 }

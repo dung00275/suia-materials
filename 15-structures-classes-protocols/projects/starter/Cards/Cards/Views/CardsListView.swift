@@ -40,11 +40,15 @@ struct CardsListView: View {
         ScrollView(showsIndicators: false) {
             VStack {
                 ForEach(store.cards, id: \.id) { card in
-                    CardThumbnailView(card: card)
-                        .onTapGesture {
-                            viewState.selectedCard = card
-                            viewState.showAllCards.toggle()
-                        }
+                    CardThumbnailView(card: card).contextMenu(menuItems: {
+                        Button(action: { store.remove(card) }, label: {
+                            Label("Delete Card", systemImage: "trash")
+                        })
+                    })
+                    .onTapGesture {
+                        viewState.selectedCard = card
+                        viewState.showAllCards.toggle()
+                    }
                 }
             }
         }
