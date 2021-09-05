@@ -32,29 +32,31 @@
 
 import SwiftUI
 
-struct CardsListView: View {
-    @EnvironmentObject var viewState: ViewState
-    @EnvironmentObject var store: CardStore
-    
-    var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                ForEach(store.cards, id: \.id) { card in
-                    CardThumbnailView(card: card)
-                        .onTapGesture {
-                            viewState.selectedCard = card
-                            viewState.showAllCards.toggle()
-                        }
-                }
-            }
-        }
+protocol CardElement {
+    var id: UUID { get }
+    var transform: Transform { get set }
+}
+
+extension CardElement {
+    func index(array: [CardElement]) -> Int? {
+        return array.firstIndex(where: { $0.id == id })
     }
 }
 
-struct CardsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardsListView()
-            .environmentObject(ViewState())
-            .environmentObject(CardStore(defaultData: true))
-    }
+protocol Findable {
+    func find()
+}
+
+struct ImageElement: CardElement {
+    let id: UUID = .init()
+    var transform: Transform = .init()
+    var image: Image
+}
+
+struct TextElement: CardElement {
+    let id: UUID  = .init()
+    var transform: Transform = .init()
+    var text: String = ""
+    var textColor = Color.black
+    var textFont = "San Fransisco"
 }

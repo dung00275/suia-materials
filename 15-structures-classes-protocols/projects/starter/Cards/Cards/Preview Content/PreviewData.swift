@@ -32,7 +32,6 @@
 
 import SwiftUI
 
-/*
 let initialCards: [Card] = [
   Card(backgroundColor: .green, elements: initialElements),
   Card(backgroundColor: .orange),
@@ -65,4 +64,4 @@ let initialElements: [CardElement] = [
     text: "Hedgehogs!!!",
     textColor: .blue)
 ]
-*/
+

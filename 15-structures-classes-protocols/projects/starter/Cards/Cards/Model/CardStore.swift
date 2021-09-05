@@ -31,30 +31,17 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import Combine
 
-struct CardsListView: View {
-    @EnvironmentObject var viewState: ViewState
-    @EnvironmentObject var store: CardStore
-    
-    var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack {
-                ForEach(store.cards, id: \.id) { card in
-                    CardThumbnailView(card: card)
-                        .onTapGesture {
-                            viewState.selectedCard = card
-                            viewState.showAllCards.toggle()
-                        }
-                }
-            }
+final class CardStore: ObservableObject {
+    @Published var cards = [Card]()
+    init(defaultData: Bool = false) {
+        if defaultData {
+            cards = initialCards
         }
     }
-}
-
-struct CardsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        CardsListView()
-            .environmentObject(ViewState())
-            .environmentObject(CardStore(defaultData: true))
+    
+    func index(for card: Card) -> Int? {
+        return cards.firstIndex(where: { $0.id == card.id })
     }
 }
