@@ -34,12 +34,27 @@ import SwiftUI
 
 struct StickerPicker: View {
     @State private var stickerNames: [String] = []
+    @Binding var stickerImage: UIImage?
+    @Environment(\.presentationMode) var presentationMode
+    
     var body: some View {
-        if let resourcePath = Bundle.main.resourcePath, let image = UIImage(named: resourcePath + "/Stickers/Camping/fire.png") {
-            Image(uiImage: image)
-        } else {
-            EmptyView()
-        }
+        ScrollView {
+            let columns: [GridItem] = [GridItem(.adaptive(minimum: 120), spacing: 10)]
+            LazyVGrid(columns: columns) {
+                ForEach(stickerNames, id: \.self) { sticker in
+                    Image(uiImage: image(from: sticker))
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .border(Color.blue, width: 1)
+                        .onTapGesture {
+                            stickerImage = image(from: sticker)
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                }
+            }
+        }.onAppear(perform: {
+            stickerNames = loadStickers()
+        })
     }
     
     func loadStickers() -> [String] {
@@ -69,10 +84,19 @@ struct StickerPicker: View {
         
         return  stickerNames
     }
+    
+    func image(from path: String) -> UIImage {
+        debugPrint("loading  \(path)")
+        return UIImage(named: path) ?? UIImage(named: "error-image") ?? .init()
+    }
 }
 
 struct StickerPicker_Previews: PreviewProvider {
     static var previews: some View {
-        StickerPicker()
+        Group {
+            StickerPicker(stickerImage: .constant(nil))
+            StickerPicker(stickerImage: .constant(nil))
+                .previewLayout(.fixed(width: 896, height: 414))
+        }
     }
 }

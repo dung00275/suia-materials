@@ -33,13 +33,21 @@
 import SwiftUI
 
 struct Card: Identifiable {
-  let id = UUID()
-  var backgroundColor: Color = .yellow
-  var elements: [CardElement] = []
-
-  mutating func remove(_ element: CardElement) {
-    if let index = element.index(in: elements) {
-      elements.remove(at: index)
+    let id = UUID()
+    var backgroundColor: Color = .yellow
+    var elements: [CardElement] = []
+    
+    mutating func remove(_ element: CardElement) {
+        if let index = element.index(in: elements) {
+            elements.remove(at: index)
+        }
     }
-  }
+    
+    mutating func addElement(uiImage: UIImage?) {
+        guard let uiImage = uiImage else {
+            return
+        }
+        let element = ImageElement(image: Image(uiImage: uiImage))
+        elements.append(element)
+    }
 }
