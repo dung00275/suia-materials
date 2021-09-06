@@ -15,7 +15,6 @@
 		8225236825C6793200A61DC3 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225236725C6793200A61DC3 /* PreviewData.swift */; };
 		8225236C25C6799900A61DC3 /* TextExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225236B25C6799900A61DC3 /* TextExtensions.swift */; };
 		8225238125C681AA00A61DC3 /* CardElementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8225238025C681AA00A61DC3 /* CardElementView.swift */; };
-		82D3B0FE25C6C12B00970C6A /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = 82D3B0FD25C6C12B00970C6A /* Stickers */; };
 		82D3B10225C6C1C400970C6A /* StickerPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82D3B10125C6C1C400970C6A /* StickerPicker.swift */; };
 		82F3FA9F25C62C1000BB30D0 /* CardsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FA9E25C62C1000BB30D0 /* CardsApp.swift */; };
 		82F3FAA125C62C1000BB30D0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAA025C62C1000BB30D0 /* ContentView.swift */; };
@@ -35,6 +34,8 @@
 		82F3FAE225C659CB00BB30D0 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAE125C659CB00BB30D0 /* ViewExtensions.swift */; };
 		82F3FAE725C65C8400BB30D0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAE625C65C8400BB30D0 /* Settings.swift */; };
 		82F3FAEE25C65D8B00BB30D0 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */; };
+		CF4F5F1126E6148900799A7E /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = CF4F5F1026E6148900799A7E /* Stickers */; };
+		CFB3966926E617510007CE6C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3966826E617510007CE6C /* PhotoPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,7 +47,6 @@
 		8225236725C6793200A61DC3 /* PreviewData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		8225236B25C6799900A61DC3 /* TextExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextExtensions.swift; sourceTree = "<group>"; };
 		8225238025C681AA00A61DC3 /* CardElementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardElementView.swift; sourceTree = "<group>"; };
-		82D3B0FD25C6C12B00970C6A /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Stickers; sourceTree = "<group>"; };
 		82D3B10125C6C1C400970C6A /* StickerPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerPicker.swift; sourceTree = "<group>"; };
 		82F3FA9B25C62C1000BB30D0 /* Cards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82F3FA9E25C62C1000BB30D0 /* CardsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsApp.swift; sourceTree = "<group>"; };
@@ -68,6 +68,8 @@
 		82F3FAE125C659CB00BB30D0 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		82F3FAE625C65C8400BB30D0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		CF4F5F1026E6148900799A7E /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stickers; path = ../../../../assets/Stickers; sourceTree = "<group>"; };
+		CFB3966826E617510007CE6C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				82D3B10125C6C1C400970C6A /* StickerPicker.swift */,
+				CFB3966826E617510007CE6C /* PhotoPicker.swift */,
 			);
 			path = "Card Modal Views";
 			sourceTree = "<group>";
@@ -114,8 +117,8 @@
 				82F3FAE925C65CA700BB30D0 /* Config */,
 				82F3FAE025C659BE00BB30D0 /* Extensions */,
 				82F3FAA225C62C1100BB30D0 /* Assets.xcassets */,
-				82D3B0FD25C6C12B00970C6A /* Stickers */,
 				82F3FAA725C62C1100BB30D0 /* Info.plist */,
+				CF4F5F1026E6148900799A7E /* Stickers */,
 				82F3FAA425C62C1100BB30D0 /* Preview Content */,
 			);
 			path = Cards;
@@ -248,7 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				82D3B0FE25C6C12B00970C6A /* Stickers in Resources */,
+				CF4F5F1126E6148900799A7E /* Stickers in Resources */,
 				8208714825C6937D00AA73AD /* license.txt in Resources */,
 				82F3FAA625C62C1100BB30D0 /* Preview Assets.xcassets in Resources */,
 				82F3FAA325C62C1100BB30D0 /* Assets.xcassets in Resources */,
@@ -306,6 +309,7 @@
 				82F3FACA25C638DD00BB30D0 /* CardModal.swift in Sources */,
 				82F3FADB25C6545100BB30D0 /* Transform.swift in Sources */,
 				82F3FAC725C6371000BB30D0 /* CardDetailView.swift in Sources */,
+				CFB3966926E617510007CE6C /* PhotoPicker.swift in Sources */,
 				82F3FAEE25C65D8B00BB30D0 /* ColorExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +440,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Cards/Preview Content\"";
+				DEVELOPMENT_TEAM = TY2V6JXHR4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Cards/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -443,7 +448,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.Cards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxy.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -457,6 +462,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Cards/Preview Content\"";
+				DEVELOPMENT_TEAM = TY2V6JXHR4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Cards/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -464,7 +470,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.Cards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxy.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
