@@ -32,63 +32,47 @@
 
 import SwiftUI
 
-
-struct CardDetailView: View {
-    @EnvironmentObject var viewState: ViewState
-    @State private var currentModal: CardModal?
-    @Binding var card: Card
-    
+struct StickerPicker: View {
+    @State private var stickerNames: [String] = []
     var body: some View {
-        content
-            .modifier(CardToolbar(currentModal: $currentModal))
-            .sheet(item: $currentModal) { item in
-                switch item {
-                case .stickerPicker:
-                    StickerPicker()
-                default:
-                    StickerPicker()
+        if let resourcePath = Bundle.main.resourcePath, let image = UIImage(named: resourcePath + "/Stickers/Camping/fire.png") {
+            Image(uiImage: image)
+        } else {
+            EmptyView()
+        }
+    }
+    
+    func loadStickers() -> [String] {
+        var themes: [URL] = []
+        var stickerNames: [String] = []
+        let fileManager = FileManager.default
+        if let resourcePath = Bundle.main.resourcePath,
+            let enumerator = fileManager.enumerator(at: URL(fileURLWithPath: resourcePath + "/Stickers/" ),
+                                   includingPropertiesForKeys: nil,
+                                   options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
+        {
+            while let url = enumerator.nextObject() as? URL {
+                guard url.hasDirectoryPath else {
+                    continue
+                }
+                themes.append(url)
+            }
+            
+            for theme in themes {
+                if let files = try? fileManager.contentsOfDirectory(atPath: theme.path) {
+                    files.forEach {
+                        stickerNames.append(theme.path + "/" + $0)
+                    }
                 }
             }
-    }
-    
-    var content: some View {
-        ZStack {
-            card.backgroundColor
-                .edgesIgnoringSafeArea(.all)
-            ForEach(card.elements, id: \.id) { element in
-                CardElementView(element: element)
-                    .contextMenu {
-                        // swiftlint:disable:next multiple_closures_with_trailing_closure
-                        Button(action: { card.remove(element) }) {
-                            Label("Delete", systemImage: "trash")
-                        }
-                    }
-                    .resizableView(transform: bindingTransform(for: element))
-                    .frame(
-                        width: element.transform.size.width,
-                        height: element.transform.size.height)
-            }
         }
-    }
-    
-    func bindingTransform(for element: CardElement)
-    -> Binding<Transform> {
-        guard let index = element.index(in: card.elements) else {
-            fatalError("Element does not exist")
-        }
-        return $card.elements[index].transform
+        
+        return  stickerNames
     }
 }
 
-struct CardDetailView_Previews: PreviewProvider {
-    struct CardDetailPreview: View {
-        @State private var card = initialCards[0]
-        var body: some View {
-            CardDetailView(card: $card)
-                .environmentObject(ViewState(card: card))
-        }
-    }
+struct StickerPicker_Previews: PreviewProvider {
     static var previews: some View {
-        CardDetailPreview()
+        StickerPicker()
     }
 }
