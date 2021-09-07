@@ -40,18 +40,7 @@ struct CardDetailView: View {
     @Binding var card: Card
     @State private var images: [UIImage] = []
     var body: some View {
-        content.onDrop(of: [.image], isTargeted: nil, perform: { providers in
-            for item in providers where item.canLoadObject(ofClass: UIImage.self) {
-                item.loadObject(ofClass: UIImage.self) { image, _ in
-                    if let image = image as? UIImage {
-                        DispatchQueue.main.async {
-                            card.addElement(uiImage: image)
-                        }
-                    }
-                }
-            }
-            return true
-        })
+        content.onDrop(of: [.image], delegate: CardDrop(card: $card))
             .modifier(CardToolbar(currentModal: $currentModal))
             .sheet(item: $currentModal) { item in
                 switch item {
@@ -68,6 +57,9 @@ struct CardDetailView: View {
                         images.forEach { card.addElement(uiImage: $0) }
                         images.removeAll()
                     })
+                case .textPicker:
+                    
+                    PencilView()
                 default:
                     EmptyView()
                 }

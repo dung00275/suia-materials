@@ -36,6 +36,8 @@
 		82F3FAEE25C65D8B00BB30D0 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */; };
 		CF4F5F1126E6148900799A7E /* Stickers in Resources */ = {isa = PBXBuildFile; fileRef = CF4F5F1026E6148900799A7E /* Stickers */; };
 		CFB3966926E617510007CE6C /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3966826E617510007CE6C /* PhotoPicker.swift */; };
+		CFB3966B26E710670007CE6C /* CardDrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3966A26E710670007CE6C /* CardDrop.swift */; };
+		CFB3966D26E714AC0007CE6C /* PencilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3966C26E714AC0007CE6C /* PencilView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		CF4F5F1026E6148900799A7E /* Stickers */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Stickers; path = ../../../../assets/Stickers; sourceTree = "<group>"; };
 		CFB3966826E617510007CE6C /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		CFB3966A26E710670007CE6C /* CardDrop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardDrop.swift; sourceTree = "<group>"; };
+		CFB3966C26E714AC0007CE6C /* PencilView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PencilView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 			children = (
 				82D3B10125C6C1C400970C6A /* StickerPicker.swift */,
 				CFB3966826E617510007CE6C /* PhotoPicker.swift */,
+				CFB3966A26E710670007CE6C /* CardDrop.swift */,
 			);
 			path = "Card Modal Views";
 			sourceTree = "<group>";
@@ -154,6 +159,7 @@
 				82F3FACC25C638F200BB30D0 /* CardBottomToolbar.swift */,
 				8225235625C65E8000A61DC3 /* CardToolbar.swift */,
 				8225238025C681AA00A61DC3 /* CardElementView.swift */,
+				CFB3966C26E714AC0007CE6C /* PencilView.swift */,
 				82D3B10025C6C1AA00970C6A /* Card Modal Views */,
 			);
 			path = "Single Card Views";
@@ -287,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8225236C25C6799900A61DC3 /* TextExtensions.swift in Sources */,
+				CFB3966D26E714AC0007CE6C /* PencilView.swift in Sources */,
 				8225235725C65E8000A61DC3 /* CardToolbar.swift in Sources */,
 				8225236125C673B700A61DC3 /* CardStore.swift in Sources */,
 				82F3FAC325C62FCB00BB30D0 /* CardsView.swift in Sources */,
@@ -298,6 +305,7 @@
 				8225235B25C6736D00A61DC3 /* CardElement.swift in Sources */,
 				82F3FAB925C62DEB00BB30D0 /* SingleCardView.swift in Sources */,
 				82F3FACD25C638F200BB30D0 /* CardBottomToolbar.swift in Sources */,
+				CFB3966B26E710670007CE6C /* CardDrop.swift in Sources */,
 				8225236825C6793200A61DC3 /* PreviewData.swift in Sources */,
 				82F3FAD625C652FD00BB30D0 /* ResizableView.swift in Sources */,
 				82F3FAE225C659CB00BB30D0 /* ViewExtensions.swift in Sources */,
