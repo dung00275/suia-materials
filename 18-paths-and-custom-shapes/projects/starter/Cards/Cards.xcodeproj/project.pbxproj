@@ -38,6 +38,9 @@
 		82F3FAE225C659CB00BB30D0 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAE125C659CB00BB30D0 /* ViewExtensions.swift */; };
 		82F3FAE725C65C8400BB30D0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAE625C65C8400BB30D0 /* Settings.swift */; };
 		82F3FAEE25C65D8B00BB30D0 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */; };
+		CF95460E26EA0AEE00FB96DA /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF95460D26EA0AEE00FB96DA /* Shapes.swift */; };
+		CF95461026EA23B100FB96DA /* FramePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF95460F26EA23B100FB96DA /* FramePicker.swift */; };
+		CF95461226EA253400FB96DA /* AnyShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF95461126EA253400FB96DA /* AnyShape.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +77,9 @@
 		82F3FAE125C659CB00BB30D0 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		82F3FAE625C65C8400BB30D0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		CF95460D26EA0AEE00FB96DA /* Shapes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapes.swift; sourceTree = "<group>"; };
+		CF95460F26EA23B100FB96DA /* FramePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramePicker.swift; sourceTree = "<group>"; };
+		CF95461126EA253400FB96DA /* AnyShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyShape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +180,9 @@
 				8225235A25C6736D00A61DC3 /* CardElement.swift */,
 				8225235D25C6738200A61DC3 /* Card.swift */,
 				8225236025C673B700A61DC3 /* CardStore.swift */,
+				CF95460D26EA0AEE00FB96DA /* Shapes.swift */,
+				CF95460F26EA23B100FB96DA /* FramePicker.swift */,
+				CF95461126EA253400FB96DA /* AnyShape.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -299,8 +308,10 @@
 				82F3FAC325C62FCB00BB30D0 /* CardsView.swift in Sources */,
 				8225235E25C6738200A61DC3 /* Card.swift in Sources */,
 				82F3FAA125C62C1000BB30D0 /* ContentView.swift in Sources */,
+				CF95460E26EA0AEE00FB96DA /* Shapes.swift in Sources */,
 				82F3FAB325C62CDC00BB30D0 /* CardsListView.swift in Sources */,
 				82F3FABC25C62F6200BB30D0 /* ViewState.swift in Sources */,
+				CF95461226EA253400FB96DA /* AnyShape.swift in Sources */,
 				82F3FA9F25C62C1000BB30D0 /* CardsApp.swift in Sources */,
 				8225235B25C6736D00A61DC3 /* CardElement.swift in Sources */,
 				82F3FAB925C62DEB00BB30D0 /* SingleCardView.swift in Sources */,
@@ -308,6 +319,7 @@
 				82D3B10B25C6CF4C00970C6A /* CardDrop.swift in Sources */,
 				8225236825C6793200A61DC3 /* PreviewData.swift in Sources */,
 				82F3FAD625C652FD00BB30D0 /* ResizableView.swift in Sources */,
+				CF95461026EA23B100FB96DA /* FramePicker.swift in Sources */,
 				82F3FAE225C659CB00BB30D0 /* ViewExtensions.swift in Sources */,
 				82F3FAE725C65C8400BB30D0 /* Settings.swift in Sources */,
 				82F3FAB625C62D6100BB30D0 /* CardThumbnailView.swift in Sources */,

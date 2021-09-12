@@ -32,30 +32,34 @@
 
 import SwiftUI
 
-struct Card: Identifiable {
-    let id = UUID()
-    var backgroundColor: Color = .yellow
-    var elements: [CardElement] = []
+struct FramePicker: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var frame: AnyShape?
     
-    mutating func remove(_ element: CardElement) {
-        if let index = element.index(in: elements) {
-            elements.remove(at: index)
+    private let columns: [GridItem] = [.init(.adaptive(minimum: 120), spacing: 10)]
+    private let style = StrokeStyle(lineWidth: 5, lineJoin: .round)
+    
+    var body: some View {
+        ScrollView {
+            LazyVGrid(columns: columns, content: {
+                ForEach(0..<Shapes.shapes.count) { idx in
+                    Shapes.shapes[idx]
+                        .stroke(Color.primary, style: style)
+                        .background(Shapes.shapes[idx].fill(Color.secondary))
+                        .frame(width: 100, height: 120)
+                        .padding()
+                        .onTapGesture {
+                            frame = Shapes.shapes[idx]
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                }
+            })
         }
     }
-    
-    mutating func addElement(uiImage: UIImage) {
-        let image = Image(uiImage: uiImage)
-        let element = ImageElement(image: image)
-        elements.append(element)
-    }
-    
-    mutating func update(_ element: CardElement?, frame: AnyShape) {
-        guard let element = element as? ImageElement,
-              let index = element.index(in: elements) else {
-            return
-        }
-        var newElement = element
-        newElement.frame = frame
-        elements[index] = newElement
+}
+
+struct FramePicker_Previews: PreviewProvider {
+    static var previews: some View {
+        FramePicker(frame: .constant(.init(Circle())))
     }
 }

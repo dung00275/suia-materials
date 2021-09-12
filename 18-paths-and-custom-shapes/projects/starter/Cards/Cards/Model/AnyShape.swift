@@ -32,30 +32,22 @@
 
 import SwiftUI
 
-struct Card: Identifiable {
-    let id = UUID()
-    var backgroundColor: Color = .yellow
-    var elements: [CardElement] = []
-    
-    mutating func remove(_ element: CardElement) {
-        if let index = element.index(in: elements) {
-            elements.remove(at: index)
+struct AnyShape: Shape {
+    private let path: (CGRect) -> Path
+    init<CustomShape: Shape>(_ shape: CustomShape) {
+        self.path = {
+            shape.path(in: $0)
         }
     }
     
-    mutating func addElement(uiImage: UIImage) {
-        let image = Image(uiImage: uiImage)
-        let element = ImageElement(image: image)
-        elements.append(element)
+    func path(in rect: CGRect) -> Path {
+        return path(rect)
     }
-    
-    mutating func update(_ element: CardElement?, frame: AnyShape) {
-        guard let element = element as? ImageElement,
-              let index = element.index(in: elements) else {
-            return
-        }
-        var newElement = element
-        newElement.frame = frame
-        elements[index] = newElement
+}
+
+
+struct AnyShape_Previews: PreviewProvider {
+    static var previews: some View {
+        AnyShape(Lens())
     }
 }
