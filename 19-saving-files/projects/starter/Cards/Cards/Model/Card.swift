@@ -33,28 +33,88 @@
 import SwiftUI
 
 struct Card: Identifiable {
-  let id = UUID()
-  var backgroundColor: Color = .yellow
-  var elements: [CardElement] = []
-
-  mutating func remove(_ element: CardElement) {
-    if let index = element.index(in: elements) {
-      elements.remove(at: index)
+    var id = UUID()
+    var backgroundColor: Color = .yellow
+    var elements: [CardElement] = []
+    
+    mutating func remove(_ element: CardElement) {
+        defer {
+            save()
+        }
+        if let element = element as? ImageElement {
+            UIImage.remove(name: element.imageFileName)
+        }
+        
+        if let index = element.index(in: elements) {
+            elements.remove(at: index)
+        }
     }
-  }
-
-  mutating func addElement(uiImage: UIImage) {
-    let image = Image(uiImage: uiImage)
-    let element = ImageElement(image: image)
-    elements.append(element)
-  }
-
-  mutating func update(_ element: CardElement?, frame: AnyShape) {
-    if let element = element as? ImageElement,
-      let index = element.index(in: elements) {
-        var newElement = element
-        newElement.frame = frame
-        elements[index] = newElement
+    
+    mutating func addElement(uiImage: UIImage) {
+        defer {
+            save()
+        }
+        let image = Image(uiImage: uiImage)
+        let imageFileName = uiImage.save()
+        let element = ImageElement(image: image,
+                                   imageFileName: imageFileName)
+        elements.append(element)
     }
-  }
+    
+    mutating func update(_ element: CardElement?, frame: AnyShape) {
+        defer {
+            save()
+        }
+        if let element = element as? ImageElement,
+           let index = element.index(in: elements) {
+            var newElement = element
+            newElement.frame = frame
+            elements[index] = newElement
+        }
+    }
+    
+    func save() {
+        do {
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let data = try encoder.encode(self)
+            let fileName = "\(id).rwcard"
+            if let url = FileManager.documentURL?.appendingPathComponent(fileName) {
+                try data.write(to: url)
+                debugPrint("File Saved: \(url.path)")
+            }
+        } catch {
+            debugPrint(error.localizedDescription)
+        }
+    }
 }
+
+extension Card: Codable {
+    enum CodingKeys: CodingKey {
+        case id, backgroundColor, imageElements, textElements
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let id = try container.decode(String.self, forKey: .id)
+        self.id = UUID(uuidString: id) ?? .init()
+        elements += try container.decode([ImageElement].self, forKey: .imageElements)
+        if let componentColors = try container.decodeIfPresent([CGFloat].self, forKey: .backgroundColor) {
+            let color = Color.color(components: componentColors)
+            backgroundColor = color
+        }
+        
+        if let textComponents = try container.decodeIfPresent([TextElement].self, forKey: .textElements) {
+            elements += textComponents
+        }
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(elements.compactMap { $0 as? ImageElement }, forKey: .imageElements)
+        try container.encode(elements.compactMap { $0 as? TextElement }, forKey: .textElements)
+        try container.encode(backgroundColor.colorComponents(), forKey: .backgroundColor)
+    }
+}
+

@@ -33,21 +33,61 @@
 import SwiftUI
 
 class CardStore: ObservableObject {
-  @Published var cards: [Card] = []
-
-  init(defaultData: Bool = false) {
-    if defaultData {
-      cards = initialCards
+    @Published var cards: [Card] = []
+    
+    init(defaultData: Bool = false) {
+        cards = defaultData ? initialCards : load()
     }
-  }
-
-  func index(for card: Card) -> Int? {
-    cards.firstIndex { $0.id == card.id }
-  }
-
-  func remove(_ card: Card) {
-    if let index = index(for: card) {
-      cards.remove(at: index)
+    
+    func index(for card: Card) -> Int? {
+        cards.firstIndex { $0.id == card.id }
     }
-  }
+    
+    func remove(_ card: Card) {
+        if let index = index(for: card) {
+            cards.remove(at: index)
+        }
+    }
+    
+    func addCard() -> Card {
+        let card = Card(backgroundColor: Color.random())
+        cards.append(card)
+        card.save()
+        return card
+    }
+}
+
+extension CardStore {
+    func load() -> [Card] {
+        var cards = [Card]()
+        guard let path = FileManager.documentURL?.path,
+              let enumarator = FileManager.default.enumerator(atPath: path),
+              let files = enumarator.allObjects as? [String] else {
+            return cards
+        }
+        
+        let cardFiles = files.filter { $0.contains(".rwcard")}
+        for cardFile in cardFiles {
+            do {
+                let path = path + "/" + cardFile
+                let card = try Card.create(from: path)
+                cards.append(card)
+            } catch {
+                debugPrint(error.localizedDescription)
+            }
+        }
+        return cards
+    }
+}
+
+extension Decodable {
+    static func create(from data: Data) throws -> Self {
+        let jsonDecoder = JSONDecoder()
+        return try jsonDecoder.decode(Self.self, from: data)
+    }
+    
+    static func create(from file: String) throws -> Self {
+        let data = try Data(contentsOf: URL(fileURLWithPath: file))
+        return try create(from: data)
+    }
 }

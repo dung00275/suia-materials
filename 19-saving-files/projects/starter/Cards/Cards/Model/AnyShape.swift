@@ -48,3 +48,12 @@ struct AnyShape: Shape {
     path(rect)
   }
 }
+
+extension AnyShape: Equatable {
+    static func ==(lhs: AnyShape, rhs: AnyShape) -> Bool {
+        let rect = CGRect(origin: .zero, size: .init(width: 100, height: 100))
+        let p1 = lhs.path(in: rect)
+        let p2 = rhs.path(in: rect)
+        return p1 == p2
+    }
+}

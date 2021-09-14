@@ -34,7 +34,7 @@ import SwiftUI
 
 @main
 struct CardsApp: App {
-  @StateObject var store = CardStore(defaultData: true)
+  @StateObject var store = CardStore()
   @StateObject var viewState = ViewState()
 
   var body: some Scene {
@@ -45,3 +45,4 @@ struct CardsApp: App {
     }
   }
 }
+
