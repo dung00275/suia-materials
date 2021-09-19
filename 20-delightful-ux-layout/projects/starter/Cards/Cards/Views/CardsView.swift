@@ -33,31 +33,42 @@
 import SwiftUI
 
 struct CardsView: View {
-  @EnvironmentObject var viewState: ViewState
-  @EnvironmentObject var store: CardStore
-
-  var body: some View {
-    ZStack {
-      VStack {
+    @EnvironmentObject var viewState: ViewState
+    @EnvironmentObject var store: CardStore
+    
+    var createButton: some View {
         Button(action: {
-          viewState.selectedCard = store.addCard()
-          viewState.showAllCards = false
+            viewState.selectedCard = store.addCard()
+            viewState.showAllCards = false
         }, label: {
-          Text("Add")
+            Label("Create New", systemImage: "plus")
+                .frame(maxWidth: .infinity)
         })
-        CardsListView()
-      }
-      if !viewState.showAllCards {
-        SingleCardView()
-      }
+        .font(.system(size: 16, weight: .bold))
+        .padding([.top, .bottom], 10)
+        .background(Color("barColor"))
     }
-  }
+    
+    var body: some View {
+        ZStack {
+            CardsListView()
+            VStack {
+                Spacer()
+                createButton
+            }
+            if !viewState.showAllCards {
+                SingleCardView()
+            }
+        }
+        .background(Color("background").edgesIgnoringSafeArea(.all))
+    }
 }
 
 struct CardsView_Previews: PreviewProvider {
-  static var previews: some View {
-    CardsView()
-      .environmentObject(ViewState())
-      .environmentObject(CardStore(defaultData: true))
-  }
+    static var previews: some View {
+        CardsView()
+            .previewDevice("iPhone 11")
+            .environmentObject(ViewState())
+            .environmentObject(CardStore(defaultData: true))
+    }
 }
