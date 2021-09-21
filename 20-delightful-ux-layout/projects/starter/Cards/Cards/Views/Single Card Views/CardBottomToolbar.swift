@@ -33,61 +33,78 @@
 import SwiftUI
 
 struct ToolbarButtonView: View {
-  let modal: CardModal
-  private let modalButton: [CardModal: (text: String, imageName: String)] = [
-    .photoPicker: ("Photos", "photo"),
-    .framePicker: ("Frames", "square.on.circle"),
-    .stickerPicker: ("Stickers", "heart.circle"),
-    .textPicker: ("Text", "textformat")
-  ]
-
-  var body: some View {
-    if let text = modalButton[modal]?.text,
-      let imageName = modalButton[modal]?.imageName {
-    VStack {
-      Image(systemName: imageName)
-        .font(.largeTitle)
-      Text(text)
+    let modal: CardModal
+    @Environment(\.verticalSizeClass) var verticalSizeClass
+    private let modalButton: [CardModal: (text: String, imageName: String)] = [
+        .photoPicker: ("Photos", "photo"),
+        .framePicker: ("Frames", "square.on.circle"),
+        .stickerPicker: ("Stickers", "heart.circle"),
+        .textPicker: ("Text", "textformat")
+    ]
+    
+    var body: some View {
+        if let text = modalButton[modal]?.text,
+           let imageName = modalButton[modal]?.imageName {
+            if verticalSizeClass == .compact {
+                compactView(imageName)
+            } else {
+                regularView(imageName, text)
+            }
+        }
     }
-    .padding(.top)
+    
+    func regularView(_ imageName: String, _ text: String) -> some View {
+        VStack(spacing: 2) {
+            Image(systemName: imageName)
+            Text(text)
+        }
+        .frame(minWidth: 60)
+        .padding(.top, 5)
     }
-  }
+    
+    func compactView(_ imageName: String) -> some View  {
+        VStack(spacing: 2) {
+            Image(systemName: imageName)
+        }
+        .frame(minWidth: 60)
+        .padding(.top, 5)
+    }
 }
 
 struct CardBottomToolbar: View {
-  @EnvironmentObject var viewState: ViewState
-  @Binding var cardModal: CardModal?
-
-  var body: some View {
-    HStack {
-      // swiftlint:disable:next multiple_closures_with_trailing_closure
-      Button(action: { cardModal = .photoPicker }) {
-        ToolbarButtonView(modal: .photoPicker)
-      }
-      // swiftlint:disable:next multiple_closures_with_trailing_closure
-      Button(action: { cardModal = .framePicker }) {
-        ToolbarButtonView(modal: .framePicker)
-      }
-      .disabled(
-        viewState.selectedElement == nil
-          || !(viewState.selectedElement.self is ImageElement))
-      // swiftlint:disable:next multiple_closures_with_trailing_closure
-      Button(action: { cardModal = .stickerPicker }) {
-        ToolbarButtonView(modal: .stickerPicker)
-      }
-      // swiftlint:disable:next multiple_closures_with_trailing_closure
-      Button(action: { cardModal = .textPicker }) {
-        ToolbarButtonView(modal: .textPicker)
-      }
+    @EnvironmentObject var viewState: ViewState
+    @Binding var cardModal: CardModal?
+    
+    var body: some View {
+        HStack(alignment: .bottom) {
+            // swiftlint:disable:next multiple_closures_with_trailing_closure
+            Button(action: { cardModal = .photoPicker }) {
+                ToolbarButtonView(modal: .photoPicker)
+            }
+            // swiftlint:disable:next multiple_closures_with_trailing_closure
+            Button(action: { cardModal = .framePicker }) {
+                ToolbarButtonView(modal: .framePicker)
+            }
+            .disabled(
+                viewState.selectedElement == nil
+                    || !(viewState.selectedElement.self is ImageElement))
+            // swiftlint:disable:next multiple_closures_with_trailing_closure
+            Button(action: { cardModal = .stickerPicker }) {
+                ToolbarButtonView(modal: .stickerPicker)
+            }
+            // swiftlint:disable:next multiple_closures_with_trailing_closure
+            Button(action: { cardModal = .textPicker }) {
+                ToolbarButtonView(modal: .textPicker)
+            }
+        }
     }
-  }
 }
 
 struct CardBottomToolbar_Previews: PreviewProvider {
-  static var previews: some View {
-    CardBottomToolbar(cardModal: .constant(.stickerPicker))
-      .environmentObject(ViewState())
-      .previewLayout(.sizeThatFits)
-      .padding()
-  }
+    static var previews: some View {
+        CardBottomToolbar(cardModal: .constant(.stickerPicker))
+            .environmentObject(ViewState())
+            .previewLayout(.sizeThatFits)
+            .padding()
+    }
 }

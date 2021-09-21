@@ -46,7 +46,7 @@ struct CardsView: View {
         })
         .font(.system(size: 16, weight: .bold))
         .padding([.top, .bottom], 10)
-        .background(Color("barColor"))
+        .background(Color("barColor")).accentColor(.white)
     }
     
     var body: some View {

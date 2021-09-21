@@ -38,12 +38,7 @@ struct ResizableView: ViewModifier {
   @State private var previousRotation: Angle = .zero
   @State private var scale: CGFloat = 1.0
 
-  let viewScale: CGFloat
-
-  init(transform: Binding<Transform>, viewScale: CGFloat = 1) {
-    _transform = transform
-    self.viewScale = viewScale
-  }
+  var viewScale: CGFloat = 1
 
   func body(content: Content) -> some View {
     let scaleGesture = MagnificationGesture()
