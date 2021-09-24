@@ -48,10 +48,11 @@ struct CardThumbnailView: View {
                 x: 0.0,
                 y: 0.0)
     }
+    
     @ViewBuilder
     private func loadThumbnail() -> some View {
         if let image = UIImage.load(uuidString: card.id.uuidString) {
-            Image(uiImage: image).resizable()
+            Image(uiImage: image).resizable().aspectRatio(contentMode: .fill)
         } else {
             card.backgroundColor
         }
