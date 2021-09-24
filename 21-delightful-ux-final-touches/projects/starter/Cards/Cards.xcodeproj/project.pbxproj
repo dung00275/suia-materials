@@ -50,6 +50,9 @@
 		82F3FAE225C659CB00BB30D0 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAE125C659CB00BB30D0 /* ViewExtensions.swift */; };
 		82F3FAE725C65C8400BB30D0 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAE625C65C8400BB30D0 /* Settings.swift */; };
 		82F3FAEE25C65D8B00BB30D0 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */; };
+		CFC556BD26F9D7F20027DDB5 /* AppLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC556BC26F9D7F20027DDB5 /* AppLoadingView.swift */; };
+		CFC556BF26F9D80A0027DDB5 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC556BE26F9D80A0027DDB5 /* SplashScreen.swift */; };
+		CFCBAA1826FC8983007B2B2B /* ListSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFCBAA1726FC8983007B2B2B /* ListSelectionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +101,9 @@
 		82F3FAE125C659CB00BB30D0 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		82F3FAE625C65C8400BB30D0 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		82F3FAED25C65D8B00BB30D0 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		CFC556BC26F9D7F20027DDB5 /* AppLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLoadingView.swift; sourceTree = "<group>"; };
+		CFC556BE26F9D80A0027DDB5 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
+		CFCBAA1726FC8983007B2B2B /* ListSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSelectionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +169,8 @@
 			isa = PBXGroup;
 			children = (
 				82F3FA9E25C62C1000BB30D0 /* CardsApp.swift */,
+				CFC556BC26F9D7F20027DDB5 /* AppLoadingView.swift */,
+				CFC556BE26F9D80A0027DDB5 /* SplashScreen.swift */,
 				82F3FAD025C63DE100BB30D0 /* Views */,
 				82F3FAD225C63DFB00BB30D0 /* Model */,
 				82F3FAE925C65CA700BB30D0 /* Config */,
@@ -189,6 +197,7 @@
 			isa = PBXGroup;
 			children = (
 				82F3FAC225C62FCB00BB30D0 /* CardsView.swift */,
+				CFCBAA1726FC8983007B2B2B /* ListSelectionView.swift */,
 				82F3FAB225C62CDC00BB30D0 /* CardsListView.swift */,
 				82F3FAB525C62D6100BB30D0 /* CardThumbnailView.swift */,
 				82F3FAD525C652FD00BB30D0 /* ResizableView.swift */,
@@ -347,12 +356,14 @@
 				8225236C25C6799900A61DC3 /* TextExtensions.swift in Sources */,
 				82C5EED125C7ACD600FF006A /* FileManagerExtensions.swift in Sources */,
 				8242D29525CC0FA60088F348 /* RenderableView.swift in Sources */,
+				CFCBAA1826FC8983007B2B2B /* ListSelectionView.swift in Sources */,
 				82D3B11F25C6D22500970C6A /* PencilView.swift in Sources */,
 				8225235725C65E8000A61DC3 /* CardToolbar.swift in Sources */,
 				8225236125C673B700A61DC3 /* CardStore.swift in Sources */,
 				82F3FAC325C62FCB00BB30D0 /* CardsView.swift in Sources */,
 				8225235E25C6738200A61DC3 /* Card.swift in Sources */,
 				820E12A325C78EE400929AD0 /* Shapes.swift in Sources */,
+				CFC556BD26F9D7F20027DDB5 /* AppLoadingView.swift in Sources */,
 				8242D29B25CC0FB10088F348 /* AppFonts.swift in Sources */,
 				82F3FAB325C62CDC00BB30D0 /* CardsListView.swift in Sources */,
 				82F3FABC25C62F6200BB30D0 /* ViewState.swift in Sources */,
@@ -381,6 +392,7 @@
 				82F3FAC725C6371000BB30D0 /* CardDetailView.swift in Sources */,
 				82D3B10825C6C9A100970C6A /* PhotoPicker.swift in Sources */,
 				82F3FAEE25C65D8B00BB30D0 /* ColorExtensions.swift in Sources */,
+				CFC556BF26F9D80A0027DDB5 /* SplashScreen.swift in Sources */,
 				821854D525C7D19C00615F7D /* CardModalViews.swift in Sources */,
 				82C5EECE25C7ACAF00FF006A /* UIImageExtensions.swift in Sources */,
 			);

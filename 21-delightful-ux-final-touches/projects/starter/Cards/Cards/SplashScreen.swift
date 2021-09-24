@@ -32,60 +32,59 @@
 
 import SwiftUI
 
-struct CardsView: View {
-    @EnvironmentObject var viewState: ViewState
-    @EnvironmentObject var store: CardStore
-    
+struct SplashScreen: View {
     var body: some View {
-        VStack {
-            if viewState.showAllCards {
-                ListSelectionView(selection: $viewState.cardListState)
-            }
-            ZStack {
-                switch viewState.cardListState {
-                case .list:
-                    CardsListView()
-                case .carousel:
-                    Carousel()
-                }
-                VStack {
-                    Spacer()
-                    createButton
-                }
-                if !viewState.showAllCards {
-                    SingleCardView()
-                        .transition(.move(edge: .bottom))
-                        .zIndex(1)
-                }
-            }
-            .background(
-                Color("background")
-                .edgesIgnoringSafeArea(.all))
+        ZStack {
+            Color("background").edgesIgnoringSafeArea(.all)
+            card(letter: "S", color: "appColor1")
+                .modifier(SplashAnimation(finalYPosition: 240, delay: 0))
+            card(letter: "D", color: "appColor2")
+                .modifier(SplashAnimation(finalYPosition: 120, delay: 0.2))
+            card(letter: "R", color: "appColor3")
+                .modifier(SplashAnimation(finalYPosition: 0, delay: 0.4))
+            card(letter: "A", color: "appColor6")
+                .modifier(SplashAnimation(finalYPosition: -120, delay: 0.6))
+            card(letter: "C", color: "appColor7")
+                .modifier(SplashAnimation(finalYPosition: -240, delay: 0.8))
         }
     }
     
-    var createButton: some View {
-        Button(action: {
-            viewState.selectedCard = store.addCard()
-            withAnimation {
-                viewState.showAllCards = false
-            }
-            // swiftlint:disable:next multiple_closures_with_trailing_closure
-        }) {
-            Label("Create New", systemImage: "plus")
-                .frame(maxWidth: .infinity)
+    func card(letter: String, color: String) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 25)
+                .shadow(radius: 3)
+                .frame(width: 120, height: 160)
+            .foregroundColor(.white)
+            Text(letter)
+                .fontWeight(.bold)
+                .scalableText()
+                .foregroundColor(Color(color))
+                .frame(width: 80)
         }
-        .font(.system(size: 16, weight: .bold))
-        .padding([.top, .bottom], 10)
-        .background(Color("barColor"))
-        .accentColor(.white)
     }
 }
 
-struct CardsView_Previews: PreviewProvider {
+struct SplashScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CardsView()
-            .environmentObject(ViewState())
-            .environmentObject(CardStore(defaultData: true))
+        SplashScreen()
+    }
+}
+
+private struct SplashAnimation: ViewModifier {
+    @State private var animating = true
+    let finalYPosition: CGFloat
+    let delay: Double
+    
+    func body(content: Content) -> some View {
+        content
+            .offset(y: animating ? -700 : finalYPosition)
+            .rotationEffect(animating ? .zero : Angle(degrees: .random(in: -10...10)))
+            .onAppear {
+                animating = false
+            }.animation(.interpolatingSpring(mass: 0.2,
+                                             stiffness: 80,
+                                             damping: 5,
+                                             initialVelocity: 0.0)
+                            .delay(delay))
     }
 }

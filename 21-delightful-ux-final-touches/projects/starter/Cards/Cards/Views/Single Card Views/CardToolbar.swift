@@ -33,21 +33,34 @@
 import SwiftUI
 
 struct CardToolbar: ViewModifier {
-  @EnvironmentObject var viewState: ViewState
-  @Binding var currentModal: CardModal?
-
-  func body(content: Content) -> some View {
-    content
-    .toolbar {
-      ToolbarItem(placement: .navigationBarTrailing) {
-        // swiftlint:disable:next multiple_closures_with_trailing_closure
-        Button(action: { viewState.showAllCards.toggle() }) {
-          Text("Done")
-        }
-      }
-      ToolbarItem(placement: .bottomBar) {
-        CardBottomToolbar(cardModal: $currentModal)
-      }
+    @EnvironmentObject var viewState: ViewState
+    @Binding var currentModal: CardModal?
+    
+    func body(content: Content) -> some View {
+        content
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    // swiftlint:disable:next multiple_closures_with_trailing_closure
+                    Button(action: {
+                        withAnimation {
+                            viewState.showAllCards = true
+                        }
+                    }) {
+                        Text("Done")
+                    }
+                }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    // swiftlint:disable:next multiple_closures_with_trailing_closure
+                    Button(action: {
+                        viewState.shouldScreenshot = true
+                        currentModal = .shareSheet
+                    }) {
+                        Image(systemName: "square.and.arrow.up")
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    CardBottomToolbar(cardModal: $currentModal)
+                }
+            }
     }
-  }
 }
