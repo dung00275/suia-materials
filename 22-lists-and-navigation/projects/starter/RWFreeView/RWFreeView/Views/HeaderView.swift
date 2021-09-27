@@ -36,29 +36,39 @@ struct HeaderView: View {
   let count: Int
   @State private var queryTerm = ""
   @State private var sortOn = "popular"
-
+  
+  fileprivate func filterView() -> some View {
+    return HStack {
+      Text("\(count) Episodes")
+      Menu.init("\(Image(systemName: "filemenu.and.cursorarrow"))") {
+        Button("10 results/page", action: {})
+        Button("20 results/page", action: {})
+        Button("30 results/page", action: {})
+        Button("No Change", action: {})
+      }
+      Spacer()
+      Picker("", selection: $sortOn) {
+        Text("New").tag("new")
+        Text("Popular").tag("popular")
+      }
+      .pickerStyle(SegmentedPickerStyle())
+      .frame(maxWidth: 130)
+      .background(Color.gray.opacity(0.8))
+    }
+    .foregroundColor(Color.white.opacity(0.6))
+  }
+  
   var body: some View {
     VStack {
       SearchField(queryTerm: $queryTerm)
       HStack {
         Button("Clear all") { }
-          .buttonStyle(HeaderButtonStyle())
+        .buttonStyle(HeaderButtonStyle())
         Button("iOS & Swift") { }
-          .buttonStyle(HeaderButtonStyle())
+        .buttonStyle(HeaderButtonStyle())
         Spacer()
       }
-      HStack {
-        Text("\(count) Episodes")
-        Spacer()
-        Picker("", selection: $sortOn) {
-          Text("New").tag("new")
-          Text("Popular").tag("popular")
-        }
-        .pickerStyle(SegmentedPickerStyle())
-        .frame(maxWidth: 130)
-        .background(Color.gray.opacity(0.8))
-      }
-      .foregroundColor(Color.white.opacity(0.6))
+      filterView()
     }
     .font(.subheadline)
     .foregroundColor(.white)
@@ -76,7 +86,7 @@ struct HeaderView: View {
 
 struct SearchField: View {
   @Binding var queryTerm: String
-
+  
   var body: some View {
     ZStack(alignment: .leading) {
       if queryTerm.isEmpty {

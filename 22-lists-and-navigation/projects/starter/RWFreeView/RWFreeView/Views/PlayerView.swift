@@ -37,11 +37,11 @@ struct PlayerView: View {
   let episode: Episode
   @State private var showPlayer = false
   @Environment(\.verticalSizeClass) var vSizeClass
-
+  
   private func height9(to16 width: CGFloat) -> CGFloat {
     return (width - 20.0) * 9.0 / 16.0
   }
-
+  
   var body: some View {
     if let url = URL(string: episode.videoURLString) {
       GeometryReader { proxy in
@@ -49,10 +49,10 @@ struct PlayerView: View {
           VideoPlayer(player: AVPlayer(url: url))
             .frame(
               maxHeight: vSizeClass == .regular ?
-                height9(to16: proxy.size.width) : .infinity)
+              height9(to16: proxy.size.width) : .infinity)
             .padding(15)
             .roundedGradientBackground()
-
+          
           // Show video info in iPad or iPhone portrait orientation
           if vSizeClass == .regular {
             VStack(spacing: 16) {
@@ -72,6 +72,8 @@ struct PlayerView: View {
           }
           Spacer()
         }
+        .navigationTitle(episode.name)
+        .navigationBarTitleDisplayMode(.inline)
       }
     }
   }
@@ -81,8 +83,10 @@ struct PlayView_Previews: PreviewProvider {
   static var previews: some View {
     let store = EpisodeStore()
     Group {
-      PlayerView(episode: store.episodes[0])
-
+      NavigationView {
+        PlayerView(episode: store.episodes[0])
+      }
+      
       // landscape view shows only VideoPlayer
       PlayerView(episode: store.episodes[0])
         .previewLayout(.fixed(width: 896.0, height: 414.0))

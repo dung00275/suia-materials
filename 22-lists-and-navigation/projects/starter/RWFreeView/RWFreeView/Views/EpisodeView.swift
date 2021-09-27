@@ -34,7 +34,14 @@ import SwiftUI
 
 struct EpisodeView: View {
   let episode: Episode
-
+  
+  @Environment(\.verticalSizeClass) var verticalSizeClass: UserInterfaceSizeClass?
+  @Environment(\.horizontalSizeClass) var horizontalSizeClass: UserInterfaceSizeClass?
+  var isIPad: Bool {
+    horizontalSizeClass == .regular &&
+    verticalSizeClass == .regular
+  }
+  
   var body: some View {
     HStack(alignment: .top, spacing: 0) {
       PlayButtonIcon(width: 40, height: 40, radius: 6)
@@ -55,6 +62,11 @@ struct EpisodeView: View {
       .font(.footnote)
       .foregroundColor(Color(UIColor.systemGray))
     }
+    .padding(10)
+    .frame(width: isIPad ? 644 : nil)
+    .background(Color.itemBkgd)
+    .cornerRadius(15)
+    .shadow(color: Color.black.opacity(0.1), radius: 10)
   }
 }
 
@@ -64,3 +76,4 @@ struct EpisodeView_Previews: PreviewProvider {
       .previewLayout(.sizeThatFits)
   }
 }
+

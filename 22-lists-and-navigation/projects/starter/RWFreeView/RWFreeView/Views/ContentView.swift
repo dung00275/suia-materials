@@ -33,14 +33,61 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var store = EpisodeStore()
+    @State private var showFilters = false
+    
+    init() {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .init(named: "top-bkgd")
+        appearance.largeTitleTextAttributes = [.foregroundColor : UIColor.white]
+        appearance.titleTextAttributes = [.foregroundColor : UIColor.white]
+        
+        UINavigationBar.appearance().tintColor = .white
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        UISegmentedControl.appearance().selectedSegmentTintColor = .init(named: "list-bkgd")
+        UITableView.appearance().separatorColor = .clear
+    }
+  
   var body: some View {
-    Text("Hello, world!")
-      .padding()
-  }
+        NavigationView {
+            List {
+                HeaderView(count: store.episodes.count)
+                ForEach(store.episodes, id: \.name) { episode in
+                  ZStack {
+                    NavigationLink(destination: PlayerView(episode: episode)) { EmptyView( )}
+                    .opacity(0)
+                    .buttonStyle(PlainButtonStyle())
+                    EpisodeView(episode: episode)
+                  }.listRowInsets(EdgeInsets())
+                    .padding(.bottom, 8)
+                    .padding([.leading, .trailing], 20)
+                  .background(Color.listBkgd)
+                }
+            }.navigationTitle("Videos")
+            .toolbar {
+              ToolbarItem {
+                  Button {
+                      showFilters.toggle()
+                  } label: {
+                      Image(systemName: "line.3.horizontal.decrease.circle")
+                      .accessibilityLabel(Text("Show filters options"))
+                  }
+              }
+          }.sheet(isPresented: $showFilters,
+                  onDismiss: { print("dismissed!") },
+                  content: { FilterOptionsView() }).listStyle(.plain)
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {
-  static var previews: some View {
-    ContentView()
-  }
+    static var previews: some View {
+        ContentView()
+    }
 }
+
