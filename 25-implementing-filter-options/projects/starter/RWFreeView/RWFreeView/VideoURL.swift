@@ -32,51 +32,55 @@
 
 import SwiftUI
 
-struct EpisodeView: View {
-  let episode: Episode
-
-  @Environment(\.verticalSizeClass) var
-    verticalSizeClass: UserInterfaceSizeClass?
-  @Environment(\.horizontalSizeClass) var
-    horizontalSizeClass: UserInterfaceSizeClass?
-  var isIPad: Bool {
-    horizontalSizeClass == .regular &&
-      verticalSizeClass == .regular
+struct VideoURLString {
+  // data: attributes: url
+  var urlString: String
+  
+  enum CodingKeys: CodingKey {
+    case data
   }
-
-  var body: some View {
-    HStack(alignment: .top, spacing: 0) {
-      PlayButtonIcon(width: 40, height: 40, radius: 6)
-      VStack(alignment: .leading, spacing: 6) {
-        Text(episode.name)
-          .font(.headline)
-          .fontWeight(.bold)
-          .foregroundColor(Color(UIColor.label))
-        AdaptingStack {
-          Text(episode.released + "  ")
-          Text(episode.domain + "  ")
-          if let difficulty = episode.difficulty {
-            Text(String(difficulty).capitalized)
-          }
-        }
-        Text(episode.description)
-          .lineLimit(2)
-      }
-      .padding(.horizontal)
-      .font(.footnote)
-      .foregroundColor(Color(UIColor.systemGray))
-    }
-    .padding(10)
-    .frame(width: isIPad ? 644 : nil)
-    .background(Color.itemBkgd)
-    .cornerRadius(15)
-    .shadow(color: Color.black.opacity(0.1), radius: 10)
+  
+  enum DataKeys: CodingKey {
+    case attributes
   }
 }
 
-struct EpisodeView_Previews: PreviewProvider {
-  static var previews: some View {
-    EpisodeView(episode: EpisodeStore().episodes[0])
-      .previewLayout(.sizeThatFits)
+struct VideoAttributes: Codable {
+  var url: String
+}
+
+extension VideoURLString: Decodable {
+  init(from decoder: Decoder) throws {
+    let container = try decoder.container(  // 1
+      keyedBy: CodingKeys.self)
+    let dataContainer = try container.nestedContainer(
+      keyedBy: DataKeys.self, forKey: .data)  // 2
+    let attr = try dataContainer.decode(
+      VideoAttributes.self, forKey: .attributes)  // 3
+    urlString = attr.url  // 4
+  }
+}
+
+class VideoURL: ObservableObject {  // 1
+  @Published var urlString = ""
+  
+  init(videoId: Int) {
+    let baseURLString =
+    "https://api.raywenderlich.com/api/videos/"
+    let queryURLString =
+    baseURLString + String(videoId) + "/stream"
+    guard let queryURL = URL(string: queryURLString)
+    else { return }  // 2
+    Task {
+      do {
+        let result = try await URLSession.shared.data(from: queryURL)
+        let decodedResponse = try JSONDecoder().decode(VideoURLString.self, from: result.0)
+        await MainActor.run(body: {
+          self.urlString = decodedResponse.urlString
+        })
+      } catch {
+        print("Videos fetch failed: " + error.localizedDescription)
+      }
+    }
   }
 }

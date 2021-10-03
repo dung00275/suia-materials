@@ -43,7 +43,7 @@ struct PlayerView: View {
   }
 
   var body: some View {
-    if let url = URL(string: episode.videoURLString) {
+    if let urlString = episode.videoURL?.urlString, let url = URL(string: urlString) {
       GeometryReader { proxy in
         VStack {
           VideoPlayer(player: AVPlayer(url: url))
@@ -63,7 +63,9 @@ struct PlayerView: View {
               HStack(spacing: 15) {
                 Text(episode.released)
                 Text(episode.domain)
-                Text(String(episode.difficulty).capitalized)
+                if let difficulty = episode.difficulty {
+                  Text(String(difficulty).capitalized)
+                }
               }
               Text(episode.description)
                 .padding(.horizontal)
