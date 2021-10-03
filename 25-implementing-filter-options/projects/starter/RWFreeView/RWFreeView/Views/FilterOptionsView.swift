@@ -44,6 +44,7 @@ struct FilterOptionsView: View {
           action: {
             presentationMode.wrappedValue.dismiss()
             // swiftlint:disable:next multiple_closures_with_trailing_closure
+            store.fetchContents()
           }) {
           Image(systemName: "xmark")
             .font(.title3)
@@ -104,10 +105,11 @@ struct FilterOptionsView: View {
         // swiftlint:enable force_unwrapping
         Spacer()
         HStack {
-          Button("Clear All") { }
+          Button("Clear All") { store.clearQueryFilters() }
           .buttonStyle(FilterButtonStyle(selected: false, width: 160))
           Button("Apply") {
             presentationMode.wrappedValue.dismiss()
+            store.fetchContents()
           }
           .buttonStyle(FilterButtonStyle(selected: true, width: 160))
         }

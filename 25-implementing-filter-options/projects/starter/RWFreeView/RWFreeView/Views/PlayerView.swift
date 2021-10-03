@@ -77,6 +77,8 @@ struct PlayerView: View {
         .navigationTitle(episode.name)
         .navigationBarTitleDisplayMode(.inline)
       }
+    } else {
+      PlaceholderView()
     }
   }
 }

@@ -40,13 +40,17 @@ struct ContentView: View {
     NavigationView {
       List {
         HeaderView(count: store.episodes.count)
-        ForEach(store.episodes, id: \.name) { episode in
+        if store.loading && store.episodes.isEmpty { ActivityIndicator() }
+        ForEach(store.episodes) { episode in
           ZStack {
-            NavigationLink(destination: PlayerView(episode: episode)) {
-              EmptyView()
+            if !store.loading {
+              NavigationLink(destination: PlayerView(episode: episode)) {
+                EmptyView()
+              }
+              .opacity(0)
+              .buttonStyle(PlainButtonStyle())
             }
-            .opacity(0)
-            .buttonStyle(PlainButtonStyle())
+            
             EpisodeView(episode: episode)
           }
           .frame(
@@ -57,8 +61,10 @@ struct ContentView: View {
           .padding(.bottom, 8)
           .padding([.leading, .trailing], 20)
           .background(Color.listBkgd)
+          .redacted(reason: store.loading ? .placeholder : [])
         }
       }
+      .background(Color.listBkgd)
       .navigationTitle("Videos")
       .toolbar {
         ToolbarItem {
@@ -70,7 +76,7 @@ struct ContentView: View {
         }
       }.listStyle(.plain)
       .sheet(isPresented: $showFilters) {
-        FilterOptionsView()
+        FilterOptionsView().environmentObject(store)
       }
     }
     .navigationViewStyle(StackNavigationViewStyle())

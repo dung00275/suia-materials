@@ -33,6 +33,7 @@
 import Foundation
 
 final class EpisodeStore: ObservableObject, Decodable {
+  @Published var loading = false
   @Published var episodes: [Episode] = []
   @Published var domainFilters: [String: Bool] = [
     "1": true,
@@ -71,6 +72,14 @@ final class EpisodeStore: ObservableObject, Decodable {
     "beginner": "Beginner",
     "intermediate": "Intermediate"
   ]
+  
+  var baseParams = [
+    "filter[subscription_types][]": "free",
+    "filter[content_types][]": "episode",
+    "sort": "-popularity",
+    "page[size]": "20",
+    "filter[q]": ""
+  ]
 
   init() {
 //    #if DEBUG
@@ -84,20 +93,23 @@ final class EpisodeStore: ObservableObject, Decodable {
     episodes = try container.decode([Episode].self, forKey: .episodes)
   }
   
+  func clearQueryFilters() {
+    domainFilters.keys.forEach { domainFilters[$0] = false }
+    difficultyFilters.keys.forEach { difficultyFilters[$0] = false }
+  }
+  
   func fetchContents() {
+    loading = true
     let baseURLString = "https://api.raywenderlich.com/api/"
     var urlComponents = URLComponents(
       string: baseURLString + "contents/")!
-    let baseParams = [
-      "filter[subscription_types][]": "free",
-      "filter[content_types][]": "episode",
-      "sort": "-popularity",
-      "page[size]": "20",
-      "filter[q]": ""
-    ]
     urlComponents.setQueryItems(with: baseParams)
-    urlComponents.queryItems! +=
-      [URLQueryItem(name: "filter[domain_ids][]", value: "1")]
+    let selectedDomains = domainFilters.filter(\.value).keys
+    let domainQueryItems = selectedDomains.map(queryDomain(_:))
+    let selectedDifficulties = difficultyFilters.filter(\.value).keys
+    let difficultyQueryItems = selectedDifficulties.map(queryDifficulty(_:))
+    urlComponents.queryItems! += domainQueryItems
+    urlComponents.queryItems! += difficultyQueryItems
 
     let contentsURL = urlComponents.url!  // 1
     let decoder = JSONDecoder()
@@ -108,6 +120,7 @@ final class EpisodeStore: ObservableObject, Decodable {
         let decodedResponse = try decoder.decode(EpisodeStore.self, from: result.0)
         await MainActor.run {
           self.episodes = decodedResponse.episodes
+          loading = false
         }
       } catch {
         print("Contents fetch failed: " + error.localizedDescription)
@@ -124,7 +137,8 @@ struct Episode: Decodable, Identifiable {
   let released: String
   let difficulty: String?
   let description: String  // description_plain_text
-
+  var parentName: String?
+  
   var domain = ""  // relationships: domains: data: id
 
   // send request to /videos endpoint with urlString
@@ -146,6 +160,7 @@ struct Episode: Decodable, Identifiable {
     case releasedAt = "released_at"
     case description = "description_plain_text"
     case videoIdentifier = "video_identifier"
+    case parentName = "parent_name"
   }
 
   struct Domains: Codable {
@@ -202,6 +217,7 @@ extension Episode {
       from: releaseDate)
     self.difficulty = difficulty
     self.description = description
+    self.parentName = try attrs.decodeIfPresent(String.self, forKey: .parentName)
     if let videoId = videoIdentifier {
       self.videoURL = VideoURL(videoId: videoId)
     }

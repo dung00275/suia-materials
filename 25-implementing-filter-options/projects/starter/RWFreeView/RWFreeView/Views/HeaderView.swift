@@ -33,88 +33,129 @@
 import SwiftUI
 
 struct HeaderView: View {
-  let count: Int
-  @State private var queryTerm = ""
-  @State private var sortOn = "popular"
-  @EnvironmentObject var store: EpisodeStore
-
-  var body: some View {
-    VStack {
-      SearchField(queryTerm: $queryTerm)
-      HStack {
-        Button("Clear all") { }
-          .buttonStyle(HeaderButtonStyle())
-        Spacer()
-      }
-      HStack {
-        Text("\(count) Episodes")
-        Menu("\(Image(systemName: "filemenu.and.cursorarrow"))") {
-          Button("10 results/page") { }
-          Button("20 results/page") { }
-          Button("30 results/page") { }
-          Button("No change") { }
+    let count: Int
+    @State private var queryTerm = ""
+    @State private var sortOn = "none"
+    @EnvironmentObject var store: EpisodeStore
+    var body: some View {
+        VStack {
+            SearchField(queryTerm: $queryTerm)
+          let threeColumns: [GridItem] = [.init(.flexible(minimum: 55)),
+                                            .init(.flexible(minimum: 55)),
+                                            .init(.flexible(minimum: 55))]
+            HStack {
+              LazyVGrid(columns: threeColumns) {
+                Button("Clear all") {
+                  queryTerm = ""
+                  store.baseParams["filter[q]"] = queryTerm
+                  store.clearQueryFilters()
+                  store.fetchContents()
+                }
+                .buttonStyle(HeaderButtonStyle())
+                ForEach.init(Array(store.domainFilters.merging(store.difficultyFilters, uniquingKeysWith: { _, second in
+                  second
+                }).filter(\.value).keys), id: \.self) { key in
+                  if let name = store.filtersDictionary[key] {
+                    Button(name) {
+                      if Int(key) == nil {
+                        store.difficultyFilters[key]?.toggle()
+                      } else {
+                        store.domainFilters[key]?.toggle()
+                      }
+                      store.fetchContents()
+                    }.buttonStyle(HeaderButtonStyle())
+                  }
+                }
+                Spacer()
+              }
+            }
+            HStack {
+                Text("\(count) Episodes")
+                Menu("\(Image(systemName: "filemenu.and.cursorarrow"))") {
+                    Button("10 results/page") {
+                      changePageSize(10)
+                    }
+                    Button("20 results/page") {
+                      changePageSize(20)
+                    }
+                    Button("30 results/page") {
+                      changePageSize(30)
+                    }
+                    Button("No change") { }
+                }
+                Spacer()
+                Picker("", selection: $sortOn) {
+                    Text("New").tag("new")
+                    Text("Popular").tag("popular")
+                }.onChange(of: sortOn, perform: { newValue in
+                  store.baseParams["sort"] = sortOn == "new" ? "-released_at" : "-popularity"
+                  store.fetchContents()
+                })
+                .pickerStyle(SegmentedPickerStyle())
+                .frame(maxWidth: 130)
+                .background(Color.gray.opacity(0.8))
+            }
+            .foregroundColor(Color.white.opacity(0.6))
         }
-        Spacer()
-        Picker("", selection: $sortOn) {
-          Text("New").tag("new")
-          Text("Popular").tag("popular")
-        }
-        .pickerStyle(SegmentedPickerStyle())
-        .frame(maxWidth: 130)
-        .background(Color.gray.opacity(0.8))
-      }
-      .foregroundColor(Color.white.opacity(0.6))
+        .font(.subheadline)
+        .foregroundColor(.white)
+        .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .leading)
+        .listRowInsets(EdgeInsets())
+        .padding()
+        .background(Color.topBkgd)
+        .cornerRadius(32, corners: [.bottomLeft, .bottomRight])
+        .background(Color.listBkgd)
     }
-    .font(.subheadline)
-    .foregroundColor(.white)
-    .frame(
-      maxWidth: .infinity,
-      maxHeight: .infinity,
-      alignment: .leading)
-    .listRowInsets(EdgeInsets())
-    .padding()
-    .background(Color.topBkgd)
-    .cornerRadius(32, corners: [.bottomLeft, .bottomRight])
-    .background(Color.listBkgd)
+  private func changePageSize(_ size: Int) {
+    store.baseParams["page[size]"] = "\(size)"
+    store.fetchContents()
   }
 }
 
 struct SearchField: View {
-  @Binding var queryTerm: String
-
-  var body: some View {
-    ZStack(alignment: .leading) {
-      if queryTerm.isEmpty {
-        Text("\(Image(systemName: "magnifyingglass")) Search videos")
-          .foregroundColor(Color.white.opacity(0.6))
-      }
-      TextField("", text: $queryTerm)
+    @Binding var queryTerm: String
+    @EnvironmentObject var store: EpisodeStore
+    
+    var body: some View {
+        ZStack(alignment: .leading) {
+            if queryTerm.isEmpty {
+                Text("\(Image(systemName: "magnifyingglass")) Search videos")
+                    .foregroundColor(Color.white.opacity(0.6))
+            }
+            TextField("", text: $queryTerm,
+                      onEditingChanged: { _ in }) {
+              store.baseParams["filter[q]"] = queryTerm
+              store.fetchContents()
+            }
+        }
+        .padding(10)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(Color.white.opacity(0.2)))
     }
-    .padding(10)
-    .background(
-      RoundedRectangle(cornerRadius: 10)
-        .foregroundColor(Color.white.opacity(0.2)))
-  }
 }
 
 struct HeaderButtonStyle: ButtonStyle {
-  func makeBody(configuration: Self.Configuration) -> some View {
-    HStack {
-      Image(systemName: "xmark")
-      configuration.label
+    func makeBody(configuration: Self.Configuration) -> some View {
+        HStack {
+            Image(systemName: "xmark")
+            configuration.label
+        }
+        .padding(8)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(Color.white.opacity(0.2))
+        )
     }
-    .padding(8)
-    .background(
-      RoundedRectangle(cornerRadius: 10)
-        .fill(Color.white.opacity(0.2))
-    )
-  }
 }
 
 struct HeaderView_Previews: PreviewProvider {
-  static var previews: some View {
-    HeaderView(count: 42)
-      .environmentObject(EpisodeStore())
-      .previewLayout(.sizeThatFits)
-  }
+    static var previews: some View {
+        HeaderView(count: 42)
+            .environmentObject(EpisodeStore())
+            .previewLayout(.sizeThatFits)
+    }
 }
