@@ -39,8 +39,10 @@ struct ContentView: View {
   var body: some View {
     NavigationView {
       List {
-        HeaderView(count: store.episodes.count)
-        if store.loading && store.episodes.isEmpty { ActivityIndicator() }
+        HeaderView(count: store.episodes.count).listRowBackground(Color.listBkgd)
+        if store.loading && store.episodes.isEmpty {
+          ActivityIndicator().listRowBackground(Color.listBkgd)
+        }
         ForEach(store.episodes) { episode in
           ZStack {
             if !store.loading {
@@ -102,6 +104,9 @@ struct ContentView: View {
     // 4. Selected segment color
     UISegmentedControl.appearance()
       .selectedSegmentTintColor = UIColor(named: "list-bkgd")
+    
+    UITableView.appearance().separatorStyle = .none
+    UITableView.appearance().separatorColor = .clear
   }
 }
 
