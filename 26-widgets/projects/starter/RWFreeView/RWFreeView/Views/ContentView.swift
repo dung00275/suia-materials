@@ -72,7 +72,7 @@ struct ContentView: View {
               .accessibilityLabel(Text("Shows filter options"))
           }
         }
-      }
+      }.listStyle(.plain)
       .sheet(isPresented: $showFilters) {
         FilterOptionsView()
           .environmentObject(store)

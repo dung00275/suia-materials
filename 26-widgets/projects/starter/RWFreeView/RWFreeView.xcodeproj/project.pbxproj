@@ -26,7 +26,42 @@
 		CD9D2C0B25B12F8F0085F28C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D2C0A25B12F8F0085F28C /* HeaderView.swift */; };
 		CD9D2C0E25B130CB0085F28C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D2C0D25B130CB0085F28C /* ViewExtension.swift */; };
 		CD9D2C2D25B145B50085F28C /* AdaptingStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D2C2C25B145B50085F28C /* AdaptingStack.swift */; };
+		CF6A8541270ED768002487DB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6A8540270ED768002487DB /* WidgetKit.framework */; };
+		CF6A8543270ED768002487DB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6A8542270ED768002487DB /* SwiftUI.framework */; };
+		CF6A8546270ED768002487DB /* RWFreeViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6A8545270ED768002487DB /* RWFreeViewWidget.swift */; };
+		CF6A8548270ED76B002487DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF6A8547270ED76B002487DB /* Assets.xcassets */; };
+		CF6A854C270ED76B002487DB /* RWFreeViewWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CF6A853E270ED768002487DB /* RWFreeViewWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CF6A8551270ED955002487DB /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD6BBCD125F1D316000D0E1C /* Episode.swift */; };
+		CF6A8552270EDA73002487DB /* VideoURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD27A96725E317F500961FEE /* VideoURL.swift */; };
+		CF6A8553270EDFFE002487DB /* PlayButtonIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD34211925A5771000817FD8 /* PlayButtonIcon.swift */; };
+		CF6A8554270EE063002487DB /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD34211E25A6BCDC00817FD8 /* ColorExtension.swift */; };
+		CF6A8555270EE074002487DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18D775C622AD944400AE281E /* Assets.xcassets */; };
+		CF6A8556270EE220002487DB /* FormatterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD27A95E25E3155F00961FEE /* FormatterExtension.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CF6A854A270ED76B002487DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 18D775B522AD944300AE281E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CF6A853D270ED768002487DB;
+			remoteInfo = RWFreeViewWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CF6A854D270ED76B002487DB /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CF6A854C270ED76B002487DB /* RWFreeViewWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1839F4AF25190F2A00BB00F1 /* RWFreeViewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWFreeViewApp.swift; sourceTree = "<group>"; };
@@ -50,6 +85,12 @@
 		CD9D2C0A25B12F8F0085F28C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		CD9D2C0D25B130CB0085F28C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CD9D2C2C25B145B50085F28C /* AdaptingStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptingStack.swift; sourceTree = "<group>"; };
+		CF6A853E270ED768002487DB /* RWFreeViewWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RWFreeViewWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF6A8540270ED768002487DB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CF6A8542270ED768002487DB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CF6A8545270ED768002487DB /* RWFreeViewWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWFreeViewWidget.swift; sourceTree = "<group>"; };
+		CF6A8547270ED76B002487DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CF6A8549270ED76B002487DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +101,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CF6A853B270ED768002487DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6A8543270ED768002487DB /* SwiftUI.framework in Frameworks */,
+				CF6A8541270ED768002487DB /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -67,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				18D775BF22AD944300AE281E /* RWFreeView */,
+				CF6A8544270ED768002487DB /* RWFreeViewWidget */,
+				CF6A853F270ED768002487DB /* Frameworks */,
 				18D775BE22AD944300AE281E /* Products */,
 			);
 			indentWidth = 2;
@@ -77,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				18D775BD22AD944300AE281E /* RWFreeView.app */,
+				CF6A853E270ED768002487DB /* RWFreeViewWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +185,25 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		CF6A853F270ED768002487DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CF6A8540270ED768002487DB /* WidgetKit.framework */,
+				CF6A8542270ED768002487DB /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CF6A8544270ED768002487DB /* RWFreeViewWidget */ = {
+			isa = PBXGroup;
+			children = (
+				CF6A8545270ED768002487DB /* RWFreeViewWidget.swift */,
+				CF6A8547270ED76B002487DB /* Assets.xcassets */,
+				CF6A8549270ED76B002487DB /* Info.plist */,
+			);
+			path = RWFreeViewWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,15 +215,34 @@
 				18D775B922AD944300AE281E /* Sources */,
 				18D775BA22AD944300AE281E /* Frameworks */,
 				18D775BB22AD944300AE281E /* Resources */,
+				CF6A854D270ED76B002487DB /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CF6A854B270ED76B002487DB /* PBXTargetDependency */,
 			);
 			name = RWFreeView;
 			productName = MyRWTutorial;
 			productReference = 18D775BD22AD944300AE281E /* RWFreeView.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CF6A853D270ED768002487DB /* RWFreeViewWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CF6A8550270ED76B002487DB /* Build configuration list for PBXNativeTarget "RWFreeViewWidgetExtension" */;
+			buildPhases = (
+				CF6A853A270ED768002487DB /* Sources */,
+				CF6A853B270ED768002487DB /* Frameworks */,
+				CF6A853C270ED768002487DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RWFreeViewWidgetExtension;
+			productName = RWFreeViewWidgetExtension;
+			productReference = CF6A853E270ED768002487DB /* RWFreeViewWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -159,12 +250,15 @@
 		18D775B522AD944300AE281E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1100;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Ray Wenderlich";
 				TargetAttributes = {
 					18D775BC22AD944300AE281E = {
 						CreatedOnToolsVersion = 11.0;
+					};
+					CF6A853D270ED768002487DB = {
+						CreatedOnToolsVersion = 13.0;
 					};
 				};
 			};
@@ -182,6 +276,7 @@
 			projectRoot = "";
 			targets = (
 				18D775BC22AD944300AE281E /* RWFreeView */,
+				CF6A853D270ED768002487DB /* RWFreeViewWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -194,6 +289,15 @@
 				18D775D822AD963800AE281E /* LaunchScreen.storyboard in Resources */,
 				18D775CA22AD944400AE281E /* Preview Assets.xcassets in Resources */,
 				18D775C722AD944400AE281E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CF6A853C270ED768002487DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6A8555270EE074002487DB /* Assets.xcassets in Resources */,
+				CF6A8548270ED76B002487DB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,7 +348,28 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CF6A853A270ED768002487DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CF6A8546270ED768002487DB /* RWFreeViewWidget.swift in Sources */,
+				CF6A8551270ED955002487DB /* Episode.swift in Sources */,
+				CF6A8556270EE220002487DB /* FormatterExtension.swift in Sources */,
+				CF6A8553270EDFFE002487DB /* PlayButtonIcon.swift in Sources */,
+				CF6A8552270EDA73002487DB /* VideoURL.swift in Sources */,
+				CF6A8554270EE063002487DB /* ColorExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CF6A854B270ED76B002487DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CF6A853D270ED768002487DB /* RWFreeViewWidgetExtension */;
+			targetProxy = CF6A854A270ED76B002487DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		18D775DA22AD963800AE281E /* LaunchScreen.storyboard */ = {
@@ -377,6 +502,7 @@
 		18D775D222AD944400AE281E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "RWFreeView/Preview\\ Content";
@@ -397,6 +523,7 @@
 		18D775D322AD944400AE281E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "RWFreeView/Preview\\ Content";
@@ -409,6 +536,64 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CF6A854E270ED76B002487DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RWFreeViewWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RWFreeViewWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Ray Wenderlich. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView.RWFreeViewWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CF6A854F270ED76B002487DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = RWFreeViewWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = RWFreeViewWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Ray Wenderlich. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView.RWFreeViewWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -431,6 +616,15 @@
 			buildConfigurations = (
 				18D775D222AD944400AE281E /* Debug */,
 				18D775D322AD944400AE281E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CF6A8550270ED76B002487DB /* Build configuration list for PBXNativeTarget "RWFreeViewWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF6A854E270ED76B002487DB /* Debug */,
+				CF6A854F270ED76B002487DB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
