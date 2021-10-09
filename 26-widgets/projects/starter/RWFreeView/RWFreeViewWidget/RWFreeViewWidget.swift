@@ -32,18 +32,14 @@
 
 import WidgetKit
 import SwiftUI
-import RWFreeView
 
 struct Provider: TimelineProvider {
-  let sampleEpisode = Episode(id: "5117655",
-                              uri: "rw://betamax/videos/3021",
+  let sampleEpisode = MiniEpisode(id: "5117655",
                               name: "SwiftUI vs. UIKit",
-                              parentName: nil,
                               released: "Sept 2019",
-                              difficulty:  "beginner",
-                              description: "Learn about the differences between SwiftUI and" + "UIKit, and whether you should learn SwiftUI, UIKit, or " + "both.\n",
                               domain: "iOS & Swift",
-                              videoURL: nil)
+                              difficulty:  "beginner",
+                              description: "Learn about the differences between SwiftUI and" + "UIKit, and whether you should learn SwiftUI, UIKit, or " + "both.\n")
   func placeholder(in context: Context) -> SimpleEntry {
     SimpleEntry(date: Date(), episode: sampleEpisode)
   }
@@ -53,14 +49,26 @@ struct Provider: TimelineProvider {
     completion(entry)
   }
   
+  func readEpisodes() -> [MiniEpisode] {
+    var result = [MiniEpisode]()
+    let archiveURL = FileManager.sharedContainerURL().appendingPathComponent("episodes.json")
+    if let data = try? Data(contentsOf: archiveURL),
+        let values = try? JSONDecoder().decode([MiniEpisode].self, from: data) {
+      result = values
+    }
+    return result
+  }
+  
   func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
     var entries: [SimpleEntry] = []
     
     // Generate a timeline consisting of five entries an hour apart, starting from the current date.
     let currentDate = Date()
-    for hourOffset in 0 ..< 5 {
-      let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-      let entry = SimpleEntry(date: entryDate, episode: sampleEpisode)
+    let interval = 3
+    let miniEpisodes = readEpisodes()
+    for index in 0 ..< miniEpisodes.count {
+      let entryDate = Calendar.current.date(byAdding: .second, value: index * interval, to: currentDate)!
+      let entry = SimpleEntry(date: entryDate, episode: miniEpisodes[index])
       entries.append(entry)
     }
     
@@ -71,7 +79,7 @@ struct Provider: TimelineProvider {
 
 struct SimpleEntry: TimelineEntry {
   let date: Date
-  var episode: Episode
+  var episode: MiniEpisode
 }
 
 struct RWFreeViewWidgetEntryView : View {
@@ -90,7 +98,7 @@ struct RWFreeViewWidgetEntryView : View {
             HStack {
               Text(entry.episode.released + "  ")
               Text(entry.episode.domain + "  ")
-              Text((entry.episode.difficulty ?? "").capitalized)
+              Text((entry.episode.difficulty).capitalized)
             }
           } else {
             Text(entry.episode.released + "  ")
@@ -106,6 +114,7 @@ struct RWFreeViewWidgetEntryView : View {
     .background(Color.itemBkgd)
     .font(.footnote)
     .foregroundColor(Color(uiColor: .systemGray))
+    .widgetURL(.init(string: "rwfreeview://\(entry.episode.id)"))
   }
 }
 
@@ -124,15 +133,12 @@ struct RWFreeViewWidget: Widget {
 }
 
 struct RWFreeViewWidget_Previews: PreviewProvider {
-  static let sampleEpisode = Episode(id: "5117655",
-                              uri: "rw://betamax/videos/3021",
+  static let sampleEpisode = MiniEpisode(id: "5117655",
                               name: "SwiftUI vs. UIKit",
-                              parentName: nil,
                               released: "Sept 2019",
-                              difficulty:  "beginner",
-                              description: "Learn about the differences between SwiftUI and" + "UIKit, and whether you should learn SwiftUI, UIKit, or " + "both.\n",
                               domain: "iOS & Swift",
-                              videoURL: nil)
+                              difficulty:  "beginner",
+                              description: "Learn about the differences between SwiftUI and" + "UIKit, and whether you should learn SwiftUI, UIKit, or " + "both.\n")
   static var previews: some View {
     RWFreeViewWidgetEntryView(entry: SimpleEntry(date: Date(), episode: sampleEpisode))
       .previewContext(WidgetPreviewContext(family: .systemSmall))

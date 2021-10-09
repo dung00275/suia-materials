@@ -31,6 +31,13 @@
 /// THE SOFTWARE.
 
 import Foundation
+import WidgetKit
+
+extension FileManager {
+  static func sharedContainerURL() -> URL {
+    self.default.containerURL(forSecurityApplicationGroupIdentifier: "group.com.galaxy.RWFreeView.episodes")!
+  }
+}
 
 final class EpisodeStore: ObservableObject, Decodable {
   @Published var episodes: [Episode] = []
@@ -85,6 +92,16 @@ final class EpisodeStore: ObservableObject, Decodable {
     "filter[q]": ""
   ]
   // 2
+  var miniEpisodes = [MiniEpisode]()
+  
+  func writeEpisodes() {
+    let archiveURL = FileManager.sharedContainerURL().appendingPathComponent("episodes.json")
+    print(">>> \(archiveURL)")
+    if let data = try? JSONEncoder().encode(miniEpisodes) {
+      try? data.write(to: archiveURL)
+    }
+  }
+  
   func fetchContents() {
     guard var urlComponents = URLComponents(string: baseURLString) else { return }
     urlComponents.setQueryItems(with: baseParams)
@@ -124,6 +141,9 @@ final class EpisodeStore: ObservableObject, Decodable {
           EpisodeStore.self, from: data) {
           DispatchQueue.main.async {
             self.episodes = decodedResponse.episodes  // 2
+            self.miniEpisodes = self.episodes.map(MiniEpisode.init(from:))
+            self.writeEpisodes()
+            WidgetCenter.shared.reloadTimelines(ofKind: "RWFreeViewWidget")
           }
           return
         }

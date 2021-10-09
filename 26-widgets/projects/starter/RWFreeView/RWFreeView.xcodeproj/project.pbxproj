@@ -26,6 +26,8 @@
 		CD9D2C0B25B12F8F0085F28C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D2C0A25B12F8F0085F28C /* HeaderView.swift */; };
 		CD9D2C0E25B130CB0085F28C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D2C0D25B130CB0085F28C /* ViewExtension.swift */; };
 		CD9D2C2D25B145B50085F28C /* AdaptingStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD9D2C2C25B145B50085F28C /* AdaptingStack.swift */; };
+		CF37C1E7270EEDB500A27253 /* EpisodeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD95699925A1663D000206E7 /* EpisodeStore.swift */; };
+		CF37C1E8270EEDCF00A27253 /* URLComponentsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD27A95B25E3155400961FEE /* URLComponentsExtension.swift */; };
 		CF6A8541270ED768002487DB /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6A8540270ED768002487DB /* WidgetKit.framework */; };
 		CF6A8543270ED768002487DB /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6A8542270ED768002487DB /* SwiftUI.framework */; };
 		CF6A8546270ED768002487DB /* RWFreeViewWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF6A8545270ED768002487DB /* RWFreeViewWidget.swift */; };
@@ -85,6 +87,7 @@
 		CD9D2C0A25B12F8F0085F28C /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		CD9D2C0D25B130CB0085F28C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		CD9D2C2C25B145B50085F28C /* AdaptingStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptingStack.swift; sourceTree = "<group>"; };
+		CF37C1E9270EF82D00A27253 /* RWFreeView.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RWFreeView.entitlements; sourceTree = "<group>"; };
 		CF6A853E270ED768002487DB /* RWFreeViewWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = RWFreeViewWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF6A8540270ED768002487DB /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		CF6A8542270ED768002487DB /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -137,6 +140,7 @@
 		18D775BF22AD944300AE281E /* RWFreeView */ = {
 			isa = PBXGroup;
 			children = (
+				CF37C1E9270EF82D00A27253 /* RWFreeView.entitlements */,
 				1839F4AF25190F2A00BB00F1 /* RWFreeViewApp.swift */,
 				CD6FFA4625B557C900544BE1 /* Views */,
 				CD95699925A1663D000206E7 /* EpisodeStore.swift */,
@@ -357,6 +361,8 @@
 				CF6A8556270EE220002487DB /* FormatterExtension.swift in Sources */,
 				CF6A8553270EDFFE002487DB /* PlayButtonIcon.swift in Sources */,
 				CF6A8552270EDA73002487DB /* VideoURL.swift in Sources */,
+				CF37C1E8270EEDCF00A27253 /* URLComponentsExtension.swift in Sources */,
+				CF37C1E7270EEDB500A27253 /* EpisodeStore.swift in Sources */,
 				CF6A8554270EE063002487DB /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,16 +510,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RWFreeView/RWFreeView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "RWFreeView/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TY2V6JXHR4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RWFreeView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxy.RWFreeView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -525,16 +532,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RWFreeView/RWFreeView.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "RWFreeView/Preview\\ Content";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TY2V6JXHR4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = RWFreeView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxy.RWFreeView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -549,7 +557,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TY2V6JXHR4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RWFreeViewWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RWFreeViewWidget;
@@ -561,7 +569,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView.RWFreeViewWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxy.RWFreeView.RWFreeViewWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -578,7 +586,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = TY2V6JXHR4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RWFreeViewWidget/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = RWFreeViewWidget;
@@ -590,7 +598,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.RWFreeView.RWFreeViewWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.galaxy.RWFreeView.RWFreeViewWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

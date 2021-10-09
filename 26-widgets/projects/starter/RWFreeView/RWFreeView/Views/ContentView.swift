@@ -35,7 +35,8 @@ import SwiftUI
 struct ContentView: View {
   @EnvironmentObject var store: EpisodeStore
   @State private var showFilters = false
-
+  @State private var selectedEpisode: Episode?
+  
   var body: some View {
     NavigationView {
       List {
@@ -45,12 +46,16 @@ struct ContentView: View {
         }
         ForEach(store.episodes) { episode in
           ZStack {
-            NavigationLink(destination: PlayerView(episode: episode)) {
+            NavigationLink(destination: PlayerView(episode: episode),
+                           tag: episode ,
+                           selection: $selectedEpisode) {
               EmptyView()
             }
             .opacity(0)
             .buttonStyle(PlainButtonStyle())
-            EpisodeView(episode: episode)
+            EpisodeView(episode: episode).onTapGesture {
+              selectedEpisode = episode
+            }
           }
           .frame(
             maxWidth: .infinity,
@@ -79,6 +84,11 @@ struct ContentView: View {
       }
     }
     .navigationViewStyle(StackNavigationViewStyle())
+    .onOpenURL { url in
+      if let id = url.host, let esp = store.episodes.first(where: { $0.id == id }) {
+        selectedEpisode = esp
+      }
+    }
   }
 
   init() {
